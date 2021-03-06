@@ -96,3 +96,6 @@ No arquivo de estilo, simplesmente definimos algumas propriedades para as 3 tags
 
 _No caso, o nosso Bloco é o `article.card` e os elementos são o `h1.card__title` e o `p.card__description`. Mas só poderemos ver os resultados após o final dessa etapa._
 
+#### 02.02. Componente Footer
+
+Faremos o mesmo que fizemos com o Card, mas ao invés de um `article`, usaremos uma `section`. E, claro, a classe referente ao bloco passa a ser `footer`.
