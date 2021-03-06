@@ -50,4 +50,20 @@ Então adicionamos os componentes base de nosso projeto. São:
 
 - Footer (rodapé)
 
-Cada um destes componente terá sua própria pasta (dentro de `frontend/src/components`) com uma pasta de mesmo nome (ex.: `frontend/src/components/Header`) e, dentro dessa pasta teremos um arquivo `index.js` (responsável por definir o componente) e `style.css` (responsável pelo estilo específico do componente).
+Cada um destes componente terá sua própria pasta (dentro de `frontend/src/components`) com uma pasta de mesmo nome (ex.: `frontend/src/components/Header`) e, dentro dessa pasta, teremos um arquivo `index.js` (responsável por definir o componente) e `style.css` (responsável pelo estilo específico do componente).
+
+#### 01.04. Páginas
+
+Agora adicionaremos as páginas base de nosso projeto (funcionam iguais aos componentes). São:
+
+- Home (página inicial)
+
+- Sobre (página institucional)
+
+- Categoria (vitrine de produtos - ou serviços, artigos, posts...)
+
+- Produto (detalhe do produto - ou serviço, artigo, post...)
+
+- Contato (página de contato)
+
+Cada uma destas página terá sua própria pasta (dentro de `frontend/src/pages`) com uma pasta de mesmo nome (ex.: `frontend/src/pages/Home`) e, dentro dessa pasta, teremos um arquivo `index.js` (responsável por definir a página) e `style.css` (responsável pelo estilo específico da página).
