@@ -107,3 +107,11 @@ Faremos quase a mesma coisa. Porém, dessa vez utilizaremos outras tags (como `n
 #### 02.04. Componente MainBanner
 
 Novamente criaremos o corpo do componente e o respectivo estilo.
+
+#### 02.05. Componente Form
+
+Vamos aproveitar a prática para conhecermos/revisitarmos a tag `fieldset`. Ela nada mais é do que um agrupador de `input`/`label` por temas (no caso, Dados Pessoais e Dados Profissionais). O `fieldset` trabalha em conjunto com a tag `legend` (que se torna o título desse grupo). Uma das maiores vantagens de utilizarmos o `fieldset` está atrelada à acessibilidade - isso torna a leitura pelo leitor de telas (ou _screen readers_) mais intuitiva para pessoas que precisam escutar nosso site.
+
+Outro ponto de atenção é quanto ao atributo `for`. No React, seu equivalente é o `htmlFor` (evitando conflitos entre o que é JSX e o que é HTML puro).
+
+Mais uma curiosidade: mesmo aplicando o padrão [BEM](http://getbem.com/), não precisamos - necessariamente - utilizar sempre o rastro todo de tags containers. Perceba que não mencionamos o `fieldset` nas classes `form__content__label` nem na classe `form__content__input`. Esse tipo de decisão vai de acordo com convenções entre o time (não queremos classes extremamente extensas, pois perderíamos justamente a legibilidade do nosso estilo - vale sempre ponderar até que ponto devemos 'detalhar' essas classes). Usando SASS/SCSS as vantagens do [BEM](http://getbem.com/) ficam ainda mais claras - podemos aninhar facilmente as classes para facilitar a escrita do nosso código.
