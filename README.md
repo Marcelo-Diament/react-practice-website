@@ -99,3 +99,7 @@ _No caso, o nosso Bloco é o `article.card` e os elementos são o `h1.card__titl
 #### 02.02. Componente Footer
 
 Faremos o mesmo que fizemos com o Card, mas ao invés de um `article`, usaremos uma `section`. E, claro, a classe referente ao bloco passa a ser `footer`.
+
+#### 02.03. Componente Header
+
+Faremos quase a mesma coisa. Porém, dessa vez utilizaremos outras tags (como `nav` e `a`). Outro ponto diferente é que deixaremos um dos links desativado. Para trabalharmos o estilo dessa tag `a` modificada, utilizaremos o conceito de _modifier_ do [BEM](http://getbem.com/). Então aplicaremos a classe `header__nav__item--disabled`.
