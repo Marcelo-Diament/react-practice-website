@@ -31,3 +31,23 @@ import reportWebVitals from './reportWebVitals';
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 ```
+
+#### 01.03. Componentes
+
+Então adicionamos os componentes base de nosso projeto. São:
+
+- Header (cabeçalho)
+
+- Main (container do conteúdo principal)
+
+- MainBanner (banner de destaque)
+
+- Shelf (vitrine ou prateleira - container de cards)
+
+- Card (card de um artigo, produto ou serviço - um preview contido em uma Shelf)
+
+- Form (formulário)
+
+- Footer (rodapé)
+
+Cada um destes componente terá sua própria pasta (dentro de `frontend/src/components`) com uma pasta de mesmo nome (ex.: `frontend/src/components/Header`) e, dentro dessa pasta teremos um arquivo `index.js` (responsável por definir o componente) e `style.css` (responsável pelo estilo específico do componente).
