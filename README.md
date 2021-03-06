@@ -81,3 +81,18 @@ Também criaremos uma pasta `./frontend/src/services/api` para centralizarmos os
 Por fim, criaremos uma pasta chamada `routes` dentro de `./frontend/src` e, dentro dessa pasta, o arquivo `index.js`. Será responsável pelo roteamento, ou seja, qual componente ou página renderizar de acordo com a URL acessada.
 
 Também instalaremos o [React Router DOM](https://reactrouter.com/web/guides/quick-start), um pacote que nos ajudará a trabalharmos com as rotas - e acessarmos uma série de dados relacionados à navegação - de maneira simples. Para instalar o pacote podemos executar `npm install --save react-router-dom` no terminal (podemos instalar o pacote via [npm](https://www.npmjs.com/package/react-router-dom) ou [yarn](https://yarnpkg.com/package/react-router-dom) - mas lembre-se de usar sempre o mesmo gerenciador de pacotes ao longo do projeto).
+
+### 02. Conteúdo Inicial de Marcação
+
+Para maiores detalhes, acesse a _branch_ `feature/02-initial-sample-content`.
+
+#### 02.01. Componente Card
+
+Basicamente importamos o estilo no componente e definimos que esse componente - funcional - deve retornar um `article` com um `h1` e um parágrafo dentro dele. Depois exportamos o componente como _default_.
+
+No arquivo de estilo, simplesmente definimos algumas propriedades para as 3 tags - através das classes (`className` no React) `card`, `card__title` e `card__description`.
+
+> Perceba que estamos usando um padráo para a nomenclatura de classes de CSS. Esse padrão se chama [BEM](http://getbem.com/). De forma simplificada, definimos maneiras de nomear as classes de acordo com o tipo de tag: **B**loco, **E**lemento ou **M**odificador. Isso facilita a leitura, escrita e manutenção de nosso estilo.
+
+_No caso, o nosso Bloco é o `article.card` e os elementos são o `h1.card__title` e o `p.card__description`. Mas só poderemos ver os resultados após o final dessa etapa._
+
