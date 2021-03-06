@@ -181,4 +181,18 @@ export default Unsplash
 
 Basicamente criamos uma função assíncrona que recebe dois argumentos - o termo de busca ( `term` ) e uma função de _callback_ (responsável por definir como a response será utilizada dentro do componente). Então o _fetch_ será realizado e passaremos a URL da imagem (recebido como `response.url` ) para essa função de _callback_ (argumento 2 da função `getRandomImgByTerm` ).
 
-Ao invés de exportarmos a função diretamente, vamos definir um objeto chamado `Unsplash`, que terá uma propriedade chamada `getRandomImgByTerm` que tem como valor, a função de mesmo nome (por isso podemos declarar o nome apenas uma vez, pois nome e valor são iguais). E aí sim exportamos o objeto `Unsplash`.
+Ao invés de exportarmos a função diretamente, vamos definir um objeto chamado `Unsplash` , que terá uma propriedade chamada `getRandomImgByTerm` que tem como valor, a função de mesmo nome (por isso podemos declarar o nome apenas uma vez, pois nome e valor são iguais). E aí sim exportamos o objeto `Unsplash` .
+
+#### 03.02. services/api
+
+Ainda na pasta `./frontend/src/services/api` , vamos importar o arquivo `Unsplash.js` no arquivo `index.js` . Isso nos permitirá agruparmos todas as chamadas de APIs em um único arquivo. A estrutura é bem semelhante à anterior:
+
+``` js
+import Unsplash from './Unsplash'
+
+const api = {
+    Unsplash
+}
+
+export default api
+```
