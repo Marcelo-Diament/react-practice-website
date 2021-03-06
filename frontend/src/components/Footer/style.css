@@ -1,0 +1,17 @@
+.footer {
+  background-color: #3e3e3e;
+  border-radius: 8px 8px 0 0;
+  margin: 16px 0 0;
+  padding: 16px;
+  width: 100vw;
+}
+
+.footer__title {
+  color: #00dbf8;
+  margin: 0 auto;
+}
+
+.footer__description {
+  color: #00dbf8;
+  text-align: center;
+}
