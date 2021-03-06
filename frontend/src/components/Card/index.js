@@ -2,7 +2,9 @@ import './style.css'
 
 const Card = () => {
   return (
-    <h1>CARD</h1>
+    <article className="card">
+      <h1>CARD</h1>
+    </article>
   )
 }
 
