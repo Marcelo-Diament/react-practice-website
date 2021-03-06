@@ -144,3 +144,7 @@ Por fim, vamos atualizar nosso `App.js` , trazendo os componentes e páginas `He
     max-width: 100%;
 }
 ```
+
+> Vamos executar `npm start` (ou `yarn start` ) para vermos como ficou nosso projeto inicial.
+
+_Observação: também faremos pequenos ajustes no estilo para melhorar nosso layout inicial._
