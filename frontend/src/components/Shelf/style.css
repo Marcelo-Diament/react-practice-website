@@ -1,0 +1,11 @@
+.shelf {
+  margin: 16px auto;
+  padding: 16px;
+  width: 100%;
+}
+
+.shelf__title {
+  color: #3e3e3e;
+  font-weight: bolder;
+  margin: 0 auto;
+}
