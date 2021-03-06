@@ -115,3 +115,7 @@ Vamos aproveitar a prática para conhecermos/revisitarmos a tag `fieldset`. Ela 
 Outro ponto de atenção é quanto ao atributo `for`. No React, seu equivalente é o `htmlFor` (evitando conflitos entre o que é JSX e o que é HTML puro).
 
 Mais uma curiosidade: mesmo aplicando o padrão [BEM](http://getbem.com/), não precisamos - necessariamente - utilizar sempre o rastro todo de tags containers. Perceba que não mencionamos o `fieldset` nas classes `form__content__label` nem na classe `form__content__input`. Esse tipo de decisão vai de acordo com convenções entre o time (não queremos classes extremamente extensas, pois perderíamos justamente a legibilidade do nosso estilo - vale sempre ponderar até que ponto devemos 'detalhar' essas classes). Usando SASS/SCSS as vantagens do [BEM](http://getbem.com/) ficam ainda mais claras - podemos aninhar facilmente as classes para facilitar a escrita do nosso código.
+
+#### 02.06. Componente Shelf
+
+O componente Shelf se difere dos demais por importar e utilizar outro componente dentro de si mesmo. Posteriormente vamos refatorar esse e os outros componentes. Mas, por enquanto, vamos simplesmente importar o componente Card - `import Card from '../Card'` (repare que não é necessário passar o nome do arquivo `index.js`, passamos apenas o caminho, subindo a pasta com `..` e acessando a pasta do componente). No caso estamos importando 6 vezes o mesmo _card_ (ainda todos iguais).
