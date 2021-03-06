@@ -153,7 +153,7 @@ _Observação: também faremos pequenos ajustes no estilo para melhorar nosso la
 
 Nesse passo iremos incluir uma imagem de fundo no componente `MainBanner` através de um `fetch` num _endpoint_ do site [Unsplash](https://source.unsplash.com/). Não se trata da API oficial (que nos daria mais possibilidades), mas de uma API simples (_Source Unsplash_), na qual podemos passar alguns parâmetros como tamanhos (_width_ e _height_) e termos de busca. O _endpoint_ que utilizaremos será:
 
-```sh
+``` sh
 https://source.unsplash.com/{WIDTH}x{HEIGHT}/?{TERMO1},{TERMO2},{TERMOS...}
 ```
 
@@ -161,6 +161,24 @@ Para nossa prática, manteremos as dimensões como 1600 x 600 e, além de um ter
 
 Para maiores detalhes, acesse a _branch_ `feature/03-main-banner-unsplash-img` . Recomendo que acesse também a documentação dessa API simples - [Source Unsplash](https://source.unsplash.com/) - e, fica de **desafio**, fazer a integração com a [API Oficial](https://unsplash.com/developers).
 
-#### 02.01. Componente Card
+#### 03.01. Unsplash Fetch API
 
-Basicament
+Dentro da pasta `./frontend/src/services/api` vamos criar um arquivo chamado `Unsplash.js` . Vamos criar uma função que recebe (como _response_) uma imagem randômica de acordo com os termos passados (no _endpoint_ mencionado). Mas, pensando em escalabilidade, faremos isso de forma que possamos incluir outras funções futuramente sem termos de refatorar o código:
+
+``` js
+const getRandomImgByTerm = async (term, callback) => {
+    const response = await fetch(`https://source.unsplash.com/1600x600/?${term},dark,landscape,horizontal`)
+    const url = response.url
+    callback(url)
+}
+
+const Unsplash = {
+    getRandomImgByTerm
+}
+
+export default Unsplash
+```
+
+Basicamente criamos uma função assíncrona que recebe dois argumentos - o termo de busca ( `term` ) e uma função de _callback_ (responsável por definir como a response será utilizada dentro do componente). Então o _fetch_ será realizado e passaremos a URL da imagem (recebido como `response.url` ) para essa função de _callback_ (argumento 2 da função `getRandomImgByTerm` ).
+
+Ao invés de exportarmos a função diretamente, vamos definir um objeto chamado `Unsplash`, que terá uma propriedade chamada `getRandomImgByTerm` que tem como valor, a função de mesmo nome (por isso podemos declarar o nome apenas uma vez, pois nome e valor são iguais). E aí sim exportamos o objeto `Unsplash`.
