@@ -71,3 +71,7 @@ Cada uma destas página terá sua própria pasta (dentro de `frontend/src/pages`
 #### 01.05. Helpers
 
 Criaremos uma pasta chamada `Helpers` dentro de `frontend/src` e um arquivo `index.js` dentro dela. No caso, não precisaremos de arquivo de CSS, pois o intuito dos Helpers é criarmos função de auxílio, para evitarmos duplicidade de código e centralizarmos todas as funções auxiliares em um mesmo local. A ideia é termos arquivos específicos por funções (ou grupo de funções), importarmos esses arquivos no `Helpers/index.js` e acesarmos dentro de nossos componentes ou páginas quando necessário.
+
+#### 01.06. Services
+
+Também criaremos uma pasta `src/services/api` para centralizarmos os controles de requisições a APIs. Dentro da pasta `api` criaremos o arquivo `index.js`, onde faremos as requisições para APIs externas.
