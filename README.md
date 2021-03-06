@@ -148,3 +148,19 @@ Por fim, vamos atualizar nosso `App.js` , trazendo os componentes e páginas `He
 > Vamos executar `npm start` (ou `yarn start` ) para vermos como ficou nosso projeto inicial.
 
 _Observação: também faremos pequenos ajustes no estilo para melhorar nosso layout inicial._
+
+### 03. Inserindo _backgroundImage_ no MainBanner via Unsplash
+
+Nesse passo iremos incluir uma imagem de fundo no componente `MainBanner` através de um `fetch` num _endpoint_ do site [Unsplash](https://source.unsplash.com/). Não se trata da API oficial (que nos daria mais possibilidades), mas de uma API simples (_Source Unsplash_), na qual podemos passar alguns parâmetros como tamanhos (_width_ e _height_) e termos de busca. O _endpoint_ que utilizaremos será:
+
+```sh
+https://source.unsplash.com/{WIDTH}x{HEIGHT}/?{TERMO1},{TERMO2},{TERMOS...}
+```
+
+Para nossa prática, manteremos as dimensões como 1600 x 600 e, além de um termo opcional, definiremos os termos _dark_, _landscape_ e _horizontal_ (para garantirmos maior contraste com o texto e imagens horizontais).
+
+Para maiores detalhes, acesse a _branch_ `feature/03-main-banner-unsplash-img` . Recomendo que acesse também a documentação dessa API simples - [Source Unsplash](https://source.unsplash.com/) - e, fica de **desafio**, fazer a integração com a [API Oficial](https://unsplash.com/developers).
+
+#### 02.01. Componente Card
+
+Basicament
