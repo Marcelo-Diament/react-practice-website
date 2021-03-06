@@ -103,3 +103,7 @@ Faremos o mesmo que fizemos com o Card, mas ao invés de um `article`, usaremos 
 #### 02.03. Componente Header
 
 Faremos quase a mesma coisa. Porém, dessa vez utilizaremos outras tags (como `nav` e `a`). Outro ponto diferente é que deixaremos um dos links desativado. Para trabalharmos o estilo dessa tag `a` modificada, utilizaremos o conceito de _modifier_ do [BEM](http://getbem.com/). Então aplicaremos a classe `header__nav__item--disabled`.
+
+#### 02.04. Componente MainBanner
+
+Novamente criaremos o corpo do componente e o respectivo estilo.
