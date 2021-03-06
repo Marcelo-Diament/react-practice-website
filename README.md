@@ -67,3 +67,7 @@ Agora adicionaremos as páginas base de nosso projeto (funcionam iguais aos comp
 - Contato (página de contato)
 
 Cada uma destas página terá sua própria pasta (dentro de `frontend/src/pages`) com uma pasta de mesmo nome (ex.: `frontend/src/pages/Home`) e, dentro dessa pasta, teremos um arquivo `index.js` (responsável por definir a página) e `style.css` (responsável pelo estilo específico da página).
+
+#### 01.05. Helpers
+
+Criaremos uma pasta chamada `Helpers` dentro de `frontend/src` e um arquivo `index.js` dentro dela. No caso, não precisaremos de arquivo de CSS, pois o intuito dos Helpers é criarmos função de auxílio, para evitarmos duplicidade de código e centralizarmos todas as funções auxiliares em um mesmo local. A ideia é termos arquivos específicos por funções (ou grupo de funções), importarmos esses arquivos no `Helpers/index.js` e acesarmos dentro de nossos componentes ou páginas quando necessário.
