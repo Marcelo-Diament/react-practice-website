@@ -128,3 +128,19 @@ Enfim, o último componente: `Main` . Ele basicamente é uma _tag_ `main` que co
 #### 02.08. Páginas
 
 Agora chegou a hora de configurarmos nossas páginas. Simplesmente vamos importar o componente `Main` para cada uma delas (sim, ficarão todas iguais - mas isso só por enquanto).
+
+#### 02.09 App.js
+
+Por fim, vamos atualizar nosso `App.js` , trazendo os componentes e páginas `Header` , `Home` e `Footer` . E vamos limpar nosso `App.css` , deixando apenas o seguinte _reset_:
+
+``` css
+
+* {
+
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    max-width: 100%;
+}
+```
