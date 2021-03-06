@@ -4,7 +4,7 @@ import './style.css'
 
 const MainBanner = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const [img, setImg] = useState({})
+  const [img, setImg] = useState('')
   const { getRandomImgByTerm } = api.Unsplash
 
   const imgCallback = url => {

@@ -1,6 +1,6 @@
 .main-banner {
   align-items: center;
-  background-blend-mode: darken;
+  background-blend-mode: multiply;
   background-color: #00dbf8;
   display: flex;
   flex-flow: column nowrap;
