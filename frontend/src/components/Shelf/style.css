@@ -1,4 +1,6 @@
 .shelf {
+  display: flex;
+  flex-flow: row wrap;
   margin: 16px auto;
   padding: 16px;
   width: 100%;
@@ -6,6 +8,9 @@
 
 .shelf__title {
   color: #3e3e3e;
+  flex: 1 0 100%;
+  font-size: 24px;
   font-weight: bolder;
-  margin: 0 auto;
+  margin: 16px auto;
+  text-align: center;
 }
