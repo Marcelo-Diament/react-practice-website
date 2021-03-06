@@ -124,3 +124,7 @@ O componente `Shelf` se difere dos demais por importar e utilizar outro componen
 #### 02.07. Componente Main
 
 Enfim, o último componente: `Main` . Ele basicamente é uma _tag_ `main` que contém os demais componentes. Repare que - atualmente - nosso componente `Main` sempre será o mesmo. Posteriormente deixaremos isso de maneira mais dinâmica, utilizando o conceito de _children_ (filhos, em inglês).
+
+#### 02.08. Páginas
+
+Agora chegou a hora de configurarmos nossas páginas. Simplesmente vamos importar o componente `Main` para cada uma delas (sim, ficarão todas iguais - mas isso só por enquanto).
