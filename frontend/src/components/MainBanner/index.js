@@ -17,7 +17,7 @@ const MainBanner = () => {
     <section className="main-banner" style={{ backgroundImage: isLoading ? '' : `url(${img}` }}>
       <h1 className="main-banner__title">MAIN BANNER</h1>
       <a href="/produto" className="main-banner__btn">Ver mais</a>
-    </section >
+    </section>
   )
 }
 
