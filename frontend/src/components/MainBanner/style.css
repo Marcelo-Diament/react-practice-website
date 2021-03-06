@@ -1,6 +1,9 @@
 .main-banner {
+  align-items: center;
   background-color: #00dbf8;
-  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   height: 50vh;
   margin: 0 0 16px 0;
   padding: 16px;
@@ -9,15 +12,16 @@
 
 .main-banner__title {
   color: #fff;
-  margin: 8px auto 8px 0;
+  font-size: 32px;
+  margin: 8px auto;
 }
 
 .main-banner__btn {
   background-color: #00dbf8;
   border: 2px solid #3e3e3e;
-  border-radius: 16px;
+  border-radius: 32px;
   color: #3e3e3e;
   font-weight: bold;
   margin: 16px auto;
-  padding: 4px 8px;
+  padding: 8px 16px;
 }
