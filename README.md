@@ -238,7 +238,18 @@ const [img, setImg] = useState('https://i.pinimg.com/originals/65/ba/48/65ba4886
 const [term, setTerm] = useState('nature')
 ```
 
-Perceba que, assim que a página é carregada, temos o estado `isLoading` com o valor `false` , o estado `img` com o valor do GIF e o `term` com o valor `nature` . Em breve veremos como alterar esses estados iniciais (com o método _setter_).
+Perceba que, assim que a página é carregada, temos o estado `isLoading` com o valor `false` , o estado `img` com o valor do GIF e o `term` com o valor `nature` . Em breve veremos como alterar esses estados iniciais (com o método _setter_). Para melhorarmos nosso arquivo, vamos definir os valores iniciais de `img` e `term` como variáveis. Juntando todas as variáveis, ficará assim:
+
+``` js
+const {
+    getRandomImgByTerm
+} = api.Unsplash,
+    defaultImg = 'https://i.pinimg.com/originals/65/ba/48/65ba488626025cff82f091336fbf94bb.gif',
+    defaultTerm = 'nature',
+    [isLoading, setIsLoading] = useState(true),
+    [img, setImg] = useState(defaultImg),
+    [term, setTerm] = useState(defaultTerm)
+```
 
 **4. Callback da função que traz a imagem**
 
@@ -287,7 +298,7 @@ Agora que temos os estados iniciais prontos e a função que altera a imagem atr
 ``` js
 const changeTheme = event => {
     event.preventDefault()
-    setTerm(prompt('Qual tema deseja?\n\nVocê pode definir mais de um tema, separando-os por vírgula. O termo deve ser escrito em inglês.').replace(/ /gi, ''))
+    setTerm(prompt('Qual tema deseja?\nVocê pode definir mais de um tema, separando-os por vírgula.\nO termo deve ser escrito em inglês.').replace(/ /gi, ''))
 }
 ```
 
@@ -350,3 +361,59 @@ return (
     background-size: 240px;
 }
 ```
+
+**8. Tratando erros**
+
+Pode ser que a API retorne uma imagem genérica de 'erro' (quando não encontra imagens para o termo). Nesse caso, a URL retornada contém a seguinte _string_: `source-404` . Então vamos rever nosso código e tratar dessa questão:
+
+* Nossa função `imageCallback` agora será definida assim:
+
+``` js
+const imgCallback = url => {
+    if (!url.includes('source-404')) {
+        setImg(url)
+        setTimeout(
+            setIsLoading(false),
+            1500
+        )
+    } else {
+        setImg(defaultImg)
+        setIsLoading(true)
+        changeTheme()
+    }
+}
+```
+
+E como utilizamos o `imgCallback` dentro do `useEffects` , o React.js sugere que a gente declare a função dentro do próprio _hook_.
+
+* Agora que chamamos o `changeTheme` dentro do `imgCallback`, também precisamos tratar o `event.preventDefault`, pois pode ser que a gente não receba um evento. Portanto, ficará assim:
+
+``` js
+const changeTheme = (event = undefined) => {
+    if (event !== undefined) {
+        event.preventDefault()
+    }
+    const newTerm = prompt('Qual tema deseja?\nVocê pode definir mais de um tema, separando-os por vírgula.\nO termo deve ser escrito em inglês.')
+    if (newTerm && newTerm !== undefined) {
+        setTerm(newTerm.replace(/ /gi, ''))
+        setImg(defaultImg)
+        setIsLoading(true)
+    } else {
+        return
+    }
+}
+```
+
+Veja que além de tratarmos a ausência de evento, estamos tratando casos em que o usuário cancele o `prompt` ou confirme sem digitar nada (ou mesmo digitando apenas espaços). Por isso mesmo isolamos o resultado do `prompt` numa variável (afinal, não podemos dar um `replace` em `undefined` ).
+
+Agora sim cobrimos todos os cenários:
+
+* Caso o usuário clique em Cancelar ao visualizar o `prompt`
+
+* Caso o usuário digite apenas espaços no `prompt`
+
+* Caso a API não encontre imagens para o termo digitado no `prompt`
+
+* Caso a API encontre imagens para o termo digitado no `prompt`
+
+Com isso, encerramos mais esse passo! =)
