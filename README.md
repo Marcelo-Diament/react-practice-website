@@ -357,7 +357,9 @@ return (
 }
 
 .main-banner.loading {
+    background-attachment: inherit;
     background-blend-mode: normal;
+    background-position: 50% 85%;
     background-size: 240px;
 }
 ```
