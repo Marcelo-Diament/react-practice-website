@@ -983,12 +983,36 @@ Nesse JSON vamos definir apenas 3 categorias e 18 _posts_ (6 por categoria). Fic
 }
 ```
 
-Também importaremos esse JSON dentro do nosso arquivo `./frontend/src/Helpers/index.js`:
+Também importaremos esse JSON dentro do nosso arquivo `./frontend/src/Helpers/index.js` :
 
-```jsx
+``` jsx
 import content from './fakeContent.json'
 
 export { content }
 ```
 
 Bem tranquilo, né? Mas calma que o bicho vai pegar! hehehe
+
+#### 06.02. Componentes Filhos
+
+Antes de consumirmos esse JSON, vamos conhecer o conceito de componentes filhos - ou _children_. Eles permitem com que possamos abrir e fechar as _tags_ dos nossos componentes que contêm os componentes filhos.
+
+Isso nos dá maior liberdade para definirmos o que cada componente receberá como _props_ e em que contexto. Por exemplo, até o momento nosso componente `Main` é sempre o mesmo. Mas precisamos definir qual o conteúdo do `Main` na página `Home` , `Sobre` , `Categoria` , etc.. Para fazermos isso, seguiremos alguns passos, começando pelo componente `Main` .
+
+**Main - o componente container**
+
+Já sabemos que estamos utilizando componentes funcionais. E que esses componentes podem receber argumentos - as _props_. Com a ajuda do _spread operator_, vamos definir que o componente `Main` receberá algumas _props_ e, no 'miolo' dele, receberá esses componentes filhos - identificados no nosso código como `props.children` :
+
+``` jsx
+import './style.css'
+
+const Main = ({...props}) => {
+  return (
+    <main className="main">
+      {props.children}
+    </main>
+  )
+}
+
+export default Main
+```
