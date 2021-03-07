@@ -841,3 +841,154 @@ Mas simplesmente trocá-los não surtirá efeito. Então vamos adicionar a propr
 Agora podemos definir um estilo específico para os `header__nav__item` que também possuírem a classe `selected` . Seria possível passarmos o estilo como objeto, através do atributo `activeStyle` , mas o arquivo fica mais organizado se mantivermos o estilo no `style.css` e a função no `index.js` .
 
 Se você testar verá um problema: o link da `Home` ( `/` ) sempre fica ativo. Para resolvermos isso basta passarmos o atributo _booleano_ `exact` .
+
+### 06. Conteúdo Dinâmico
+
+Chegou uma das partes mais interessantes do React.js - vamos criar conteúdo dinâmico e sentir na pele a economia de código ao reaproveitarmos os componentes.
+
+Posteriormente poderemos incrementar vários pontos do projeto, mas esse é um dos principais passos. Para maiores detalhes, acesse a _branch_ `feature/06-placeholder-content` .
+
+#### 06.01. Fake Content
+
+Vamos começar criando um JSON com conteúdo falso, apenas de marcação (_placeholder_). Então vamos criar um arquivo chamado `fakeContent.json` dentro da pasta `./frontend/src/Helpers` . Você pode criar seu próprio conteúdo também. No mundo real, consumiríamos essas informações do nosso _back end_, do nosso banco de dados ou de uma API externa (similarmente ao fizemos com as imagens do `MainBanner` ).
+
+Nesse JSON vamos definir apenas 3 categorias e 18 _posts_ (6 por categoria). Ficará assim:
+
+``` json
+{
+  "categories": [
+    {
+      "id": 1,
+      "title": "Categoria 01"
+    },
+    {
+      "id": 2,
+      "title": "Categoria 02"
+    },
+    {
+      "id": 3,
+      "title": "Categoria 03"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "cat_id": 1,
+      "title": "Post 01",
+      "description": "Conteúdo de exemplo do post 01, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 2,
+      "cat_id": 1,
+      "title": "Post 02",
+      "description": "Conteúdo de exemplo do post 02, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 3,
+      "cat_id": 1,
+      "title": "Post 03",
+      "description": "Conteúdo de exemplo do post 03, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 4,
+      "cat_id": 1,
+      "title": "Post 04",
+      "description": "Conteúdo de exemplo do post 04, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 5,
+      "cat_id": 1,
+      "title": "Post 05",
+      "description": "Conteúdo de exemplo do post 05, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 6,
+      "cat_id": 1,
+      "title": "Post 06",
+      "description": "Conteúdo de exemplo do post 06, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 7,
+      "cat_id": 2,
+      "title": "Post 07",
+      "description": "Conteúdo de exemplo do post 07, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 8,
+      "cat_id": 2,
+      "title": "Post 08",
+      "description": "Conteúdo de exemplo do post 08, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 9,
+      "cat_id": 2,
+      "title": "Post 09",
+      "description": "Conteúdo de exemplo do post 09, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 10,
+      "cat_id": 2,
+      "title": "Post 10",
+      "description": "Conteúdo de exemplo do post 10, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 11,
+      "cat_id": 2,
+      "title": "Post 11",
+      "description": "Conteúdo de exemplo do post 11, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 12,
+      "cat_id": 2,
+      "title": "Post 12",
+      "description": "Conteúdo de exemplo do post 12, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 13,
+      "cat_id": 3,
+      "title": "Post 13",
+      "description": "Conteúdo de exemplo do post 13, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 14,
+      "cat_id": 3,
+      "title": "Post 14",
+      "description": "Conteúdo de exemplo do post 14, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 15,
+      "cat_id": 3,
+      "title": "Post 15",
+      "description": "Conteúdo de exemplo do post 15, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 16,
+      "cat_id": 3,
+      "title": "Post 16",
+      "description": "Conteúdo de exemplo do post 16, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 17,
+      "cat_id": 3,
+      "title": "Post 17",
+      "description": "Conteúdo de exemplo do post 17, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    },
+    {
+      "id": 18,
+      "cat_id": 3,
+      "title": "Post 18",
+      "description": "Conteúdo de exemplo do post 18, apenas de marcação... Não perca seu tempo tentando ler esse texto pois é totalmente irrelevante. Poderia ser um lorem ipsum, mas, para diferenciar cada post, tem um textinho \"customizado\"... Mas agora vou apelas para o lorem ipsum - só que do Mussum! Mussum Ipsum, cacilds vidis litro abertis. Quem num gosta di mim que vai caçá sua turmis! Copo furadis é disculpa de bebadis, arcu quam euismod magna. Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis."
+    }
+  ]
+}
+```
+
+Também importaremos esse JSON dentro do nosso arquivo `./frontend/src/Helpers/index.js`:
+
+```jsx
+import content from './fakeContent.json'
+
+export { content }
+```
+
+Bem tranquilo, né? Mas calma que o bicho vai pegar! hehehe
