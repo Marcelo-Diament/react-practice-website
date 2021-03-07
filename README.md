@@ -422,7 +422,32 @@ Com isso, encerramos mais esse passo! =)
 
 ### 04. Toggle Theme
 
-Nessa _branch_ vamos fazer o famoso botão que troca o tema do site todo (de _light_ para _dark_ e vice-versa). Mas temos um problema: a captura do clique ocorre no componente do botão, e a classe que irá definir a troca de estilo deve ficar no componente `App.js`.
+Nessa _branch_ vamos fazer o famoso botão que troca o tema do site todo (de _light_ para _dark_ e vice-versa). Mas temos um problema: a captura do clique ocorre no componente do botão, e a classe que irá definir a troca de estilo deve ficar no componente `App.js` .
 
 Para resolvermos esse problema, precisaremos tratar o _state_ no `App` e manipular esse _state_ no `ToggleButton` - isso pode ser feito via _props_. Vamos começar!
 
+#### 04.01 Componente ToggleButton
+
+Vamos construir nosso componente `ToggleButton` dentro de uma nova pasta: `./frontend/src/components/Button/ToggleButton/index.js` . Como mencionado, a troca do _state_ ocorre no `App.js` - o método _setter_ se encontra lá. E é justamente o método _setter_ ( `setIsLight` ) que vamos transferir através das _props_ até o nosso novo componente. Além do _setter_, vamos passar a `className` por _props_ também.
+
+``` jsx
+import './style.css'
+const ToggleButton = ({ ...props }) => {
+  const { className, themeClick } = props
+  return (
+    <button
+      className={`${className} toggle-theme-btn`}
+      onClick={themeClick}
+    >
+    </button>
+  )
+}
+
+export default ToggleButton
+```
+
+Repare que o componente irá receber _props_ com o _spread operator_ (capturamos todas as propriedades que vierem como argumentos/atributos do componente).
+
+Por isso, a maneira mais legível e enxuta de capturarmos os 2 argumentos é pela desestruturação. Se futuramente quisermos passar mais propriedades, bastará acrescentar mais um objeto na desestruturação.
+
+E então retornamos um `button` com `className` de acordo com o que for recebido e evento `onClick` também. Até poderíamos setar a classe diretamente no componente, mas se quisermos reaproveitá-lo, da forma que fizemos não teremos problemas em mudar a classe, isso será passado de dentro do componente que instancia nosso `ToggleButton`.
