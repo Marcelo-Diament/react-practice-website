@@ -20,6 +20,10 @@ button:hover:not([class*="disabled"]) {
   filter: invert(1);
 }
 
+.App.dark {
+  background-color: #303030;
+}
+
 /* Temp */
 .header+small {
   display: block;
