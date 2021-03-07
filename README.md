@@ -1210,3 +1210,19 @@ export default Card
 ```
 
 _Apenas a propriedade `color` e `margin` não compõem essa estratégia. No caso, limitamos o conteúdo exibido a 3 linhas._
+
+### 07. Categorias dinâmicas
+
+Nessa etapa vamos criar um submenu para as categorias e fazer algumas customizações para deixar o projeto um pouco mais dinâmico. Vamos:
+
+- Criar funções auxiliares para manipulação de _strings_
+
+- Carregar imagens  do `MainBanner` que sejam relacionadas às subcategorias (para isso vamos ter de deixar o nome das categorias em inglês)
+
+- Atualizar a _tag_ `small` que indica em que página estamos, de acordo com a categoria
+
+- Conhecer o _hook_ `useParams` e `useLocation` do `react-router-dom`
+
+- Configurar a página `Categoria` para se adequar às rotas que passam o parâmetro `:categoria`
+
+Acesse a _branch_ `feature/07-categories-submenu` para ver maiores detalhes.
