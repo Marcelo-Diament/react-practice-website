@@ -1080,3 +1080,62 @@ Agora basta passarmos uma _prop_ (com o mesmo nome - `title` - em cada component
 ``` jsx
 <MainBanner title="Título a ser exibido no MainBanner" />
 ```
+
+#### 06.04. Consumindo o JSON
+
+Finalmente iremos consumir nosso JSON! O primeiro passo, é importar o conteúdo nas páginas que passarão o conteúdo para os componentes pertencentes a elas.
+
+No final da linha, quem consumirá o conteúdo serão os componentes `Shelf` e `Card` . Mas começaremos 'de fora para dentro', então vamos alterar os componentes/páginas `Home` , `Sobre` e `Categoria` . Abaixo, vamos entender como funcionará com o componente `Sobre` :
+
+**Importando o conteúdo**
+
+Primeiro, importaremos o conteúdo definido no `Helpers` :
+
+``` jsx
+import { content } from '../../Helpers'
+```
+
+_Como o `content` não foi exportado como default, devemos declará-lo entre chaves. A vantagem é que poderíamos ter outros conteúdos importados através do `Helpers` ao mesmo tempo (como fizemos com o `react-router-dom` e o `Switch` , `Route` , por exemplo)._
+
+**Passando o conteúdo para Shelf**
+
+Agora que temos acesso ao JSON, vamos capturar as propriedades `categories` e `posts` (ambas têm como valor um _array_ de objetos).
+
+``` jsx
+const { categories, posts } = content
+```
+
+Dessa forma podemos acessar `categories` e `posts` para acessar esses _arrays_.
+
+Nosso intuito é renderizar um componente `Shelf` por categoria. Por isso faremos um _loop_ do tipo `map` nas categorias. Para cada 'rodada' do _loop_, instanciaremos um componente `Shelf` passando o título da categoria e os respectivos _posts_. E, para filtrarmos apenas os _posts_ da categoria, usaremos uma propriedade que faz esse _link_ entre _post_ e categoria, que é o `cat_id` :
+
+``` jsx
+const renderCategories = () => categories.map((category) => {
+  const { id, title } = category
+  const catPosts = posts.filter(post => post.cat_id === id)
+  return (
+    <Shelf title={title} posts={catPosts} key={id} />
+  )
+})
+```
+
+**Importante!** Há dois pontos a serem esclarecidos:
+
+* Sempre que realizamos um _loop_, precisamos definir um atributo chamado `key` - ele que diferenciará cada um dos itens a serem retornados.
+
+* Veja que todo atributo que estamos criando possui uma chave (nome à esquerda) e um valor (nome à direita). A **chave é o nome pelo qual acessaremos a _prop_** no componente que a recebe. O nome à direita, o **valor, é o nome da variável que detém o valor e que é definida dentro do atual componente**. Por exemplo, os _posts_ da categoria são passados através da variável `catPosts`. Mas são recebidos como `posts`.
+
+Toda a lógica demonstrada acima está contida numa função, chamada `renderCategories`. Então executaremos essa função dentro do retorno do componente (entre chaves, por se tratar de JS):
+
+```jsx
+return (
+  <>
+    <small>Você está na página Sobre</small>
+    <Main>
+      <MainBanner title="SOBRE" />
+      <Form />
+      {renderCategories()}
+    </Main>
+  </>
+)
+```
