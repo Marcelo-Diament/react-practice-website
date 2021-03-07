@@ -9,10 +9,16 @@
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  height: 50vh;
+  height: 600px;
   margin: 0 0 16px 0;
+  max-height: 100vh;
   padding: 16px;
   width: 100vw;
+}
+
+.main-banner.loading {
+  background-blend-mode: normal;
+  background-size: 240px;
 }
 
 .main-banner__title {
