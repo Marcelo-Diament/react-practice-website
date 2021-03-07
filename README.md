@@ -715,3 +715,64 @@ E vamos aproveitar para fazer uma pequena correção no estilo do `Header` (just
     pointer-events: none;
 }
 ```
+
+### 05.05. Link para links
+
+O [React Router DOM](https://reactrouter.com/web/guides/quick-start) nos permite implantarmos o conceito de **SPA** (_Single Page Application_). De forma resumida, trata-se de recarregarmos, atualizarmos e alterarmos os elementos renderizados na página - e a própria URL - sem recarregarmos de fato a página ou o DOM. Daí o nome - renderizamos diferentes conteúdos sem mudar de página. Por um lado, isso aumenta muito a performance. Por outro, não conseguimos indexar o conteúdo que será futuramente renderizado, o que é prejudicial para o SEO.
+
+Para termos esse conceito aplicado, uma das ferramentas é o `Link` . O `Link` substituirá a tag `a` do HTML e tem alguns atributos específicos (ao invés do `href` , por exemplo, utilizamos o atributo `to` ). Há diversas maneiras de utilizarmos o `Link` . Nessa prática passaremos uma _string_ como valor do atributo `to` . Para que isso dê certo, o `Link` precisa estar dentro do `Router` ( `BrowserRouter` ). Então o primeiro passo será movermos o `Router` para o `App.js` , de forma a abranger o `Header` (onde utilizaremos o `Link` ). Então nosso arquivo `App.js` ficará assim:
+
+``` jsx
+import React, { useState } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
+import Header from './components/Header'
+import Routes from './routes'
+import Footer from './components/Footer'
+import './App.css';
+
+function App() {
+  const lightAsDefault = new Date().getHours() > 8 && new Date().getHours() < 18
+  const [isLight, setIsLight] = useState(lightAsDefault)
+  const toggleTheme = () => setIsLight(!isLight)
+  return (
+    <div className={`App${!isLight ? ' dark' : ''}`}>
+      <Router>
+        <Header themeClick={toggleTheme} />
+        <Routes />
+        <Footer />
+      </Router>
+    </div>
+  )
+}
+
+export default App
+```
+
+Simplesmente importamos o `Router` e incluímos a tag do componente ao redor do `Header` , `Routers` e `Footer` .
+
+E, como já estamos declarando no `App` , agora devemos remover do arquivo `routes/index.js` :
+
+``` jsx
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import Home from '../pages/Home'
+import Sobre from '../pages/Sobre'
+import Categoria from '../pages/Categoria'
+import Produto from '../pages/Produto'
+import Contato from '../pages/Contato'
+
+const Routes = () => {
+  return (    
+      <Switch>
+        <Route path="/sobre" component={Sobre} />
+        <Route path="/contato" component={Contato} />
+        <Route exact path="/categorias" component={Categoria} />
+        <Route exact path="/categorias/:categoria" component={Categoria} />
+        <Route exact path="/categorias/:categoria/:produto" component={Produto} />
+        <Route path="/" component={Home} />
+      </Switch>
+  )
+}
+
+export default Routes
+```
