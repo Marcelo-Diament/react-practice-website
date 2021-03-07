@@ -469,3 +469,53 @@ export {ToggleButton}
 ```
 
 Sim, é só isso mesmo! =)
+
+#### 04.03. Importando o Button no Header
+
+Como não exportamos o `ToggleButton` como _default_ (no componente `Button` ), para importá-lo no `Header` precisamos declarar seu nome entre chaves:
+
+``` jsx
+import { ToggleButton } from '../Button'
+```
+
+E na sequência vamos incluí-lo no retorno do componente, após o último link:
+
+``` jsx
+<ToggleButton className="header__nav__item" themeClick={themeClick} />
+```
+
+No trecho acima, estamos passando a _prop_ `className` como _string_ e a _prop_ `themeClick` como variável. Por isso, nosso `Header` vai precisar receber essa _prop_ (que indica o evento disparado no clique) do `App` :
+
+``` jsx
+const Header = ({ ...props }) => {
+  const { themeClick } = props
+  // ...
+}
+```
+
+Veja que estamos desestruturando as _props_ para capturarmos a função `themeClick` . Para capturarmos outras _props_ é só declararmos após a `themeClick` (justamente por conta do _spread operator_, que 'pega' tudo).
+
+Então nosso `Header` atualizado ficou assim:
+
+``` jsx
+import { ToggleButton } from '../Button'
+import './style.css'
+
+const Header = ({ ...props }) => {
+  const { themeClick } = props
+  return (
+    <section className="header">
+      <h1 className="header__title">HEADER</h1>
+      <nav className="header__nav">
+        <a href="/" className="header__nav__item">Início</a>
+        <a href="/sobre" className="header__nav__item">Sobre</a>
+        <a href="/produtos" className="header__nav__item">Produtos</a>
+        <a href="/contato" disabled className="header__nav__item--disabled">Contato</a>
+        <ToggleButton className="header__nav__item" themeClick={themeClick} />
+      </nav>
+    </section>
+  )
+}
+
+export default Header
+```
