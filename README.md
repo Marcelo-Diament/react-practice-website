@@ -157,7 +157,7 @@ Nesse passo iremos incluir uma imagem de fundo no componente `MainBanner` atrav�
 https://source.unsplash.com/{WIDTH}x{HEIGHT}/?{TERMO1},{TERMO2},{TERMOS...}
 ```
 
-Para nossa prática, manteremos as dimensões como 1600 x 600 e, além de um termo opcional, definiremos os termos _dark_, _landscape_ e _horizontal_ (para garantirmos maior contraste com o texto e imagens horizontais).
+Para nossa prática, manteremos as dimensões como 1600 x 600.
 
 Para maiores detalhes, acesse a _branch_ `feature/03-main-banner-unsplash-img` . Recomendo que acesse também a documentação dessa API simples - [Source Unsplash](https://source.unsplash.com/) - e, fica de **desafio**, fazer a integração com a [API Oficial](https://unsplash.com/developers).
 
@@ -167,7 +167,7 @@ Dentro da pasta `./frontend/src/services/api` vamos criar um arquivo chamado `Un
 
 ``` js
 const getRandomImgByTerm = async (term, callback) => {
-    const response = await fetch(`https://source.unsplash.com/1600x600/?${term},dark,landscape,horizontal`)
+    const response = await fetch(`https://source.unsplash.com/1600x600/?${term}`)
     const url = response.url
     callback(url)
 }
@@ -195,4 +195,131 @@ const api = {
 }
 
 export default api
+```
+
+#### 03.03. Realizando a chamada à API no MainBanner
+
+Para que nossa requisição ao _endpoint_ do [Source Unsplash](https://source.unsplash.com/) ocorra corretamente, precisaremos utilizar 2 dos principais _hooks_ do React: o `useState` e o `useEffect` . Além de importar o método que realiza o `fetch` do nosso arquivo `./frontend/src/services/api/index.js` . Vamos por partes:
+
+**1. Importando os _hooks_**
+
+Precisamos importar o `React` e seus _hooks_ com o seguinte trecho de código:
+
+``` js
+import React, {
+    useState,
+    useEffect
+} from 'react'
+```
+
+**2. Importando o arquivo de APIs**
+
+Também importaremos nosso arquivo responsável por requisições à APIs:
+
+``` js
+import api from '../../services/api'
+```
+
+E definiremos nossa função que retorna a imagem randômica a partir de um termo (usando desestruturação):
+
+``` js
+const {
+    getRandomImgByTerm
+} = api.Unsplash
+```
+
+**3. Estados do componente com useState**
+
+Para carregarmos nosso componente `MainBanner` com _states_ iniciais - e para podermos modificá-los com os métodos _setter_ - vamos usar o _hook_ `useState` , onde definimos o nome do _state_, o nome da função _setter_ e o _state_ inicial. A sintaxe é assim: `const [ stateX, setStateX ] = useState('stateInicial')` . Faremos isso com o termo de busca (para permitirmos que o usuário troque o termo de busca da imagem), o _state_ `isLoading` (para controlarmos se a imagem está sendo carregada ou se já foi carregada) e o _state_ `img` (que contém a URL da imagem recebida da API). Esse trecho ficará assim:
+
+``` js
+const [isLoading, setIsLoading] = useState(true)
+const [img, setImg] = useState('https://i.pinimg.com/originals/65/ba/48/65ba488626025cff82f091336fbf94bb.gif')
+const [term, setTerm] = useState('nature')
+```
+
+Perceba que, assim que a página é carregada, temos o estado `isLoading` com o valor `false` , o estado `img` com o valor do GIF e o `term` com o valor `nature` . Em breve veremos como alterar esses estados iniciais (com o método _setter_).
+
+**4. Callback da função que traz a imagem**
+
+Lembra que precisamos passar um segundo argumento à função que requisita uma imagem na API? É o tal do _callback_, nada mais que uma função que é chamada quando 'chega a hora certa' (quando recebemos um retorno da API). Vamos defini-lo agora!
+
+Como _callback_ da requisição à API, definiremos a seguinte função:
+
+``` js
+const imgCallback = url => {
+    setImg(url)
+    setTimeout(
+        setIsLoading(false),
+        1500
+    )
+}
+```
+
+Bom, essa função recebe uma URL (da imagem, definimos isso dentro do arquivo `./frontend/src/services/api/Unsplash.js` , no trecho `callback(url)` ).
+
+Essa URL representa o endereço da imagem. Logo, vamos atualizar o _state_ `img` passando o valor recebido no argumento `url` (_response_ da API) através do método _setter_ `setImg` .
+
+Em seguida, trocamos o estado `isLoading` para `false` . Mas, como a imagem pode ser um pouco pesada e demorar a carregar, vamos incluir esse _setter_ ( `setIsLoading` ) dentro de um `setTimeout` de 1.5 segundo. Vale pontuar que não é uma prática a ser adotada normalmente, mas nesse caso, faz sentido (visando uma melhor experiência do usuário).
+
+**5. Controlando efeitos colaterais com useEffect**
+
+O _hook_ `useEffect` serve para atualizarmos somente aquilo que realmente precisa ser atualizado. Então definimos como primeiro argumento a ação que deve ocorrer (uma função _callback_) e, como segundo argumento, passamos um _array_ de dependências - ou seja, elementos que serão observados e que caso sofram alterações dispararão a função de _callback_.
+
+> Podemos passar esse array de dependências vazio, para que o `useEffect` só execute nosso callback quando a página for carregada na primeira vez - mas o React.js disparará um alerta nesse caso. Devemos ainda tomar cuidado para não cairmos num loop infinito, onde o callback modifica o próprio elemento declarado como dependência.
+
+O `useEffect` ainda permite passarmos um terceiro argumento, que seria uma função que 'limparia' o contexto após a execução do _callback_, mas não usaremos esse recurso nessa prática.
+
+Bom, nosso trecho de código (ou _snippet_) ficará assim:
+
+``` js
+useEffect(() => {
+    getRandomImgByTerm(term, imgCallback)
+}, [getRandomImgByTerm, term])
+```
+
+Então sempre que o `term` (ou a função `getRandomImgByTerm` ) sofrer alterações, dispararemos a função passando o estado `term` e a função `imgCallback` (que definimos anteriormente).
+
+**6. Troca de imagem no evento de clique**
+
+Agora que temos os estados iniciais prontos e a função que altera a imagem atrelada à mudança do estado `term` , vamos criar uma função para quando clicarmos no botão do `MainBanner` , o usuário poder definir um novo tema (novo `term` ) e trocar a imagem do banner. Trata-se de uma função (que será chamada quando o evento de clique for disparado a partir do botão) que evitará a troca de página ( `preventDefault` ), exibirá um `prompt` para que o usuário digite o(s) novo(s) termo(s) e passará esse(s) termo(s) para a função _setter_ responsável pelo estado `term` - a `setTerm` . Para evitarmos espaços entre os termos, trataremos a _string_ com um `replace` também.
+
+``` js
+const changeTheme = event => {
+    event.preventDefault()
+    setTerm(prompt('Qual tema deseja?\n\nVocê pode definir mais de um tema, separando-os por vírgula. O termo deve ser escrito em inglês.').replace(/ /gi, ''))
+}
+```
+
+**7. Retornando o componente**
+
+Agora só resta retornarmos o componente em si. Em relação ao componente original, vamos incluir:
+
+* Uma condição para adicionarmos a classe _loading_ caso o _state_ `isLoading` seja `true`:
+
+``` jsx
+className={`main-banner ${isLoading ? 'loading' : ''}`}
+```
+
+* Um estilo '_inline_' em forma de objeto para adicionarmos o _background-image_ de maneira dinâmica. Vale pontuar que o _state_ inicial de `img` é o GIF de 'carregamento', caso contrário, a imagem é passada para o _state_ `img`, por isso não precisamos de um _if_.
+
+``` jsx
+style={{ backgroundImage: `url(${img}` }}
+```
+
+* Um evento de clique para exibirmos o `prompt` e então redefinirmos o valor do _state_ `term`:
+
+``` jsx
+onClick={changeTheme}
+```
+
+O resultado final será o seguinte:
+
+``` jsx
+return (
+    <section className={`main-banner ${isLoading ? 'loading' : ''}`} style={{ backgroundImage: `url(${img}` }}>
+      <h1 className="main-banner__title">MAIN BANNER</h1>
+      <a href="/produto" className="main-banner__btn" onClick={changeTheme}>Trocar tema</a>
+    </section>
+  )
 ```
