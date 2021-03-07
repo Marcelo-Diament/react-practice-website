@@ -8,7 +8,7 @@ const Sobre = () => {
     <>
       <small>Você está na página Sobre</small>
       <Main>
-        <MainBanner />
+        <MainBanner title="SOBRE" />
         <Form />
         <Shelf />
       </Main>
