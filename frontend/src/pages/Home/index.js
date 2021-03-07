@@ -7,7 +7,7 @@ const Home = () => {
     <>
       <small>Você está na página Home</small>
       <Main>
-        <MainBanner />
+        <MainBanner title="HOME" />
         <Shelf />
       </Main>
     </>
