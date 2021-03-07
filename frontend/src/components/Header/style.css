@@ -26,6 +26,11 @@
   margin: 0 0 0 24px;
 }
 
+.header__nav__item.selected {
+  color: #00dbf8;
+  font-weight: bold;
+}
+
 .header__nav__item--disabled {
   color: rgb(211, 211, 211);
   font-weight: normal;
