@@ -8,7 +8,7 @@ const Header = ({ ...props }) => {
     <section className="header">
       <h1 className="header__title">HEADER</h1>
       <nav className="header__nav">
-        <NavLink to="/" activeClassName="selected" className="header__nav__item">Início</NavLink>
+        <NavLink exact to="/" activeClassName="selected" className="header__nav__item">Início</NavLink>
         <NavLink to="/sobre" activeClassName="selected" className="header__nav__item">Sobre</NavLink>
         <NavLink to="/categorias" activeClassName="selected" className="header__nav__item">Categorias</NavLink>
         <NavLink to="/promocoes" disabled className="header__nav__item--disabled">Promoções</NavLink>
