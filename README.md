@@ -823,3 +823,19 @@ E ainda poderíamos passar como objeto (no exemplo há algumas outras propriedad
 Uma vantagem de passar como objeto é a facilidade de leitura e de passar um _state_ que persiste ao longo da navegação.
 
 Podemos, ainda, passar um atributo `replace` , que substitui a posição atual do histórico de navegação ao invés de acrescentar um novo item. Esse parâmetro é _booleano_, então simplesmente ao declarar `replace` já o configuramos como `true` (seria o mesmo que passarmos `replace={true}` ).
+
+### 05.06. Substituindo Link por NavLink
+
+> Há também o recurso [NavLink](https://reactrouter.com/web/api/NavLink), que facilita o destaque do link quado sua rota coincide com a localização atual do usuário.
+
+Vamos trocar o `Link` que acabamos de inserir no `Header` por `NavLink` (também precisamos alterar a importação).
+
+Mas simplesmente trocá-los não surtirá efeito. Então vamos adicionar a propriedade `activeClassName` , passando o valor `selected` (classe que será adicionada quando o link estiver 'ativo'). Exemplo:
+
+``` jsx
+<NavLink to="/" activeClassName="selected" className="header__nav__item">Início</NavLink>
+```
+
+Agora podemos definir um estilo específico para os `header__nav__item` que também possuírem a classe `selected`. Seria possível passarmos o estilo como objeto, através do atributo `activeStyle`, mas o arquivo fica mais organizado se mantivermos o estilo no `style.css` e a função no `index.js`.
+
+Se você testar verá um problema: o link da `Home` (`/`) sempre fica ativo. Para resolvermos isso basta passarmos o atributo _booleano_ `exact`.
