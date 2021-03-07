@@ -583,3 +583,11 @@ Podemos começar pelo próprio estilo do `App` :
     color: #fff;
 }
 ```
+
+Também podemos atualizar o título do componente `Shelf` :
+
+``` css
+.App.dark .shelf__title {
+    color: #fff;
+}
+```
