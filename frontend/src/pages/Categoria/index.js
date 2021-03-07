@@ -7,7 +7,7 @@ const Categoria = () => {
     <>
       <small>Você está na página Categoria</small>
       <Main>
-        <MainBanner />
+        <MainBanner title="CATEGORIAS" />
         <Shelf />
       </Main>
     </>
