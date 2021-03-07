@@ -6,7 +6,7 @@ const Produto = () => {
     <>
       <small>Você está na página Produto</small>
       <Main>
-        <MainBanner />
+        <MainBanner title="PRODUTO" />
       </Main>
     </>
   )
