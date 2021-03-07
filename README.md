@@ -450,4 +450,22 @@ Repare que o componente irá receber _props_ com o _spread operator_ (capturamos
 
 Por isso, a maneira mais legível e enxuta de capturarmos os 2 argumentos é pela desestruturação. Se futuramente quisermos passar mais propriedades, bastará acrescentar mais um objeto na desestruturação.
 
-E então retornamos um `button` com `className` de acordo com o que for recebido e evento `onClick` também. Até poderíamos setar a classe diretamente no componente, mas se quisermos reaproveitá-lo, da forma que fizemos não teremos problemas em mudar a classe, isso será passado de dentro do componente que instancia nosso `ToggleButton`.
+E então retornamos um `button` com `className` de acordo com o que for recebido e evento `onClick` também. Até poderíamos setar a classe diretamente no componente, mas se quisermos reaproveitá-lo, da forma que fizemos não teremos problemas em mudar a classe, isso será passado de dentro do componente que instancia nosso `ToggleButton` .
+
+Observando o estilo desse componente, fica claro que seu layout depende de uma classe `dark` a ser acrescida e removida do `App` , de acordo com o clique do usuário.
+
+Para que o botão fique bem apresentável e remeta aos botões de _toggle_ (ON/OFF), vamos usar o pseudo-elemento `::after` . Em alguns momentos utilizamos o seletor `:not(.dark)` para garantirmos que não receberemos os elementos selecionados errados, mas poderia ser dispensado o seu uso.
+
+#### 04.02. Componente Button
+
+Apesar de termos nosso componente pronto, vamos importá-lo num componente que fará a ponte entre o `ToggleButton` e os componentes que vierem a usá-lo. Isso para mantermos nosso código organizado, garantirmos uma manutenção mais fácil e para agruparmos nossos diversos `button` em um componente pai/mãe - o componente `Button` .
+
+Dessa vez é algo bem simples: vamos importar e exportar o `ToggleButton` - mas sem ser como _default_, pois só podemos exportar um único elemento como _default_, e a ideia é justamente podermos exportar vários tipos de `button` , de acordo com a nossa necessidade.
+
+``` jsx
+import ToggleButton from './ToggleButton'
+
+export {ToggleButton}
+```
+
+Sim, é só isso mesmo! =)
