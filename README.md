@@ -689,3 +689,29 @@ function App() {
 
 export default App
 ```
+
+### 05.04. Ajustes no Menu
+
+Vamos ajustar nosso componente `Header` , para casar com nossas rotas. Também vamos 'liberar' a página de Contato e criar outra para mantermos o exemplo do uso do _modifier_ do [BEM](http://getbem.com/).
+
+``` jsx
+<nav className="header__nav">
+  <a href="/" className="header__nav__item">Início</a>
+  <a href="/sobre" className="header__nav__item">Sobre</a>
+  <a href="/categorias" className="header__nav__item">Categorias</a>
+  <a href="/promocoes" disabled className="header__nav__item--disabled">Promoções</a>
+  <a href="/contato" className="header__nav__item">Contato</a>
+  <ToggleButton className="header__nav__item" themeClick={themeClick} />
+</nav>
+```
+
+E vamos aproveitar para fazer uma pequena correção no estilo do `Header` (justamente no item desabilitado):
+
+``` css
+.header__nav__item--disabled {
+    color: rgb(211, 211, 211);
+    font-weight: normal;
+    margin: 0 0 0 24px;
+    pointer-events: none;
+}
+```
