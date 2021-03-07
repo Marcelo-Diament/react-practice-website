@@ -419,3 +419,10 @@ Agora sim cobrimos todos os cenários:
 * Caso a API encontre imagens para o termo digitado no `prompt`
 
 Com isso, encerramos mais esse passo! =)
+
+### 04. Toggle Theme
+
+Nessa _branch_ vamos fazer o famoso botão que troca o tema do site todo (de _light_ para _dark_ e vice-versa). Mas temos um problema: a captura do clique ocorre no componente do botão, e a classe que irá definir a troca de estilo deve ficar no componente `App.js`.
+
+Para resolvermos esse problema, precisaremos tratar o _state_ no `App` e manipular esse _state_ no `ToggleButton` - isso pode ser feito via _props_. Vamos começar!
+
