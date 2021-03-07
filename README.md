@@ -1055,3 +1055,28 @@ Agora é só replicarmos nas demais páginas, da forma que quisermos. Nessa prá
 
 _Posteriormente poderemos alterar esses componentes e toda a estrutura como um todo._
 
+**Passando um título para o MainBanner**
+
+Agora que podemos controlar os componentes de dentro de cada página (através dos _children_ de `Main` ), vamos passar um título para o componente `MainBanner` , de modo que se adeque a cada página onde é exibido o componente.
+
+No componente `MainBanner` , vamos indicar que ele deve receber _props_ (com o _spread operator_) e trocar a _string_ 'MAIN BANNER' (que até então está fixa no componente, _hard coded_, como chamamos) pela _prop_ `title` , que passaremos onde instanciamos o componente.
+
+De forma resumida (excluindo os demais trechos de código), ficará assim:
+
+``` jsx
+const MainBanner = ({ ...props }) => {
+  // ...
+  const { title } = props
+  return (
+      <h1 className="main-banner__title">{title ? title : 'MAIN BANNER'}</h1>
+  )
+}
+```
+
+Perceba que estamos nos 'garantindo' - caso `title` não exista, aí usaremos aquela mesma _string_.
+
+Agora basta passarmos uma _prop_ (com o mesmo nome - `title` - em cada componente onde instanciamos o `MainBanner` ), dessa forma:
+
+``` jsx
+<MainBanner title="Título a ser exibido no MainBanner" />
+```
