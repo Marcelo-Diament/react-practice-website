@@ -567,3 +567,19 @@ function App() {
 
 export default App
 ```
+
+#### 04.05. Estilo dark mode
+
+Agora só falta atualizarmos o estilo para aplicarmos o _dark mode_ baseado na classe `dark` , que será inserida ou removida do `App` conforme horário de acesso e cliques do usuário.
+
+Podemos começar pelo próprio estilo do `App` :
+
+``` css
+.App.dark {
+    background-color: #303030;
+}
+
+.App.dark .header+small {
+    color: #fff;
+}
+```
