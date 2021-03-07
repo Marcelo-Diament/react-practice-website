@@ -519,3 +519,51 @@ const Header = ({ ...props }) => {
 
 export default Header
 ```
+
+#### 04.04. Manipulando o estado no App
+
+Chegou a hora de manipularmos o _state_ do tema no `App.js` . Mãos à obra!
+
+Antes de mais nada, vamos importar o _hook_ `useState` : `import React, { useState } from 'react'` .
+
+> Um bônus: para definirmos o state inicial, vamos ver se o horário do acesso está entre 08 e 18 horas. Se estiver, vamos definir como state inicial o tema claro. Senão, definimos o tema escuro.
+
+E aí prosseguimos normalmente, definindo nosso _state_ `isLight` e seu _setter_, `setIsLight` :
+
+``` jsx
+const lightAsDefault = new Date().getHours() > 8 && new Date().getHours() < 18
+  const [isLight, setIsLight] = useState(lightAsDefault)
+```
+
+E para atrelarmos o clique no `ToggleButton` à função `setIsLight` , vamos criar uma função que servirá de _callback_ para o evento do clique (e será transmitida para o `Header` > `Button` > `ToggleButton` ):
+
+``` jsx
+const toggleTheme = () => setIsLight(!isLight)
+```
+
+Como o _state_ é _booleano_, basta setarmos o oposto do _state_ atual (com o símbolo de negação - `!` ) como valor passado para o _setter_.
+
+E, finalmente, vamos criar uma classe dinâmica para o `App` , de acordo com o _state_ `isLight` e, também, passar o _setter_ como _prop_ do `Header` . Nosso `App` ficará assim:
+
+``` jsx
+import React, { useState } from 'react'
+import Header from './components/Header'
+import Home from './pages/Home'
+import Footer from './components/Footer'
+import './App.css';
+
+function App() {
+  const lightAsDefault = new Date().getHours() > 8 && new Date().getHours() < 18
+  const [isLight, setIsLight] = useState(lightAsDefault)
+  const toggleTheme = () => setIsLight(!isLight)
+  return (
+    <div className={`App${!isLight ? ' dark' : ''}`}>
+      <Header themeClick={toggleTheme} />
+      <Home />
+      <Footer />
+    </div>
+  )
+}
+
+export default App
+```
