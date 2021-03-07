@@ -424,7 +424,9 @@ Com isso, encerramos mais esse passo! =)
 
 Nessa _branch_ vamos fazer o famoso botão que troca o tema do site todo (de _light_ para _dark_ e vice-versa). Mas temos um problema: a captura do clique ocorre no componente do botão, e a classe que irá definir a troca de estilo deve ficar no componente `App.js` .
 
-Para resolvermos esse problema, precisaremos tratar o _state_ no `App` e manipular esse _state_ no `ToggleButton` - isso pode ser feito via _props_. Vamos começar!
+Para resolvermos esse problema, precisaremos tratar o _state_ no `App` e manipular esse _state_ no `ToggleButton` - isso pode ser feito via _props_.
+
+Para maiores detalhes, acesse a _branch_ `feature/04-toggle-theme` . Vamos começar!
 
 #### 04.01 Componente ToggleButton
 
@@ -606,7 +608,7 @@ E o `background-color` do `Form` (e a cor da fonte do botão enviar):
 
 ### 05. Rotas
 
-Vamos manipular as rotas de nosso projeto - em outras palavras, definir o que deve ser carregado/renderizado de acordo com a URL acessada.
+Vamos manipular as rotas de nosso projeto - em outras palavras, definir o que deve ser carregado/renderizado de acordo com a URL acessada. Para maiores detalhes, acesse a _branch_ `feature/05-routes` .
 
 #### 05.01. react-router-dom
 
@@ -836,6 +838,6 @@ Mas simplesmente trocá-los não surtirá efeito. Então vamos adicionar a propr
 <NavLink to="/" activeClassName="selected" className="header__nav__item">Início</NavLink>
 ```
 
-Agora podemos definir um estilo específico para os `header__nav__item` que também possuírem a classe `selected`. Seria possível passarmos o estilo como objeto, através do atributo `activeStyle`, mas o arquivo fica mais organizado se mantivermos o estilo no `style.css` e a função no `index.js`.
+Agora podemos definir um estilo específico para os `header__nav__item` que também possuírem a classe `selected` . Seria possível passarmos o estilo como objeto, através do atributo `activeStyle` , mas o arquivo fica mais organizado se mantivermos o estilo no `style.css` e a função no `index.js` .
 
-Se você testar verá um problema: o link da `Home` (`/`) sempre fica ativo. Para resolvermos isso basta passarmos o atributo _booleano_ `exact`.
+Se você testar verá um problema: o link da `Home` ( `/` ) sempre fica ativo. Para resolvermos isso basta passarmos o atributo _booleano_ `exact` .
