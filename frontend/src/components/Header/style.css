@@ -28,7 +28,7 @@
 
 .header__nav__item--disabled {
   color: rgb(211, 211, 211);
-  cursor: none;
   font-weight: normal;
   margin: 0 0 0 24px;
+  pointer-events: none;
 }
