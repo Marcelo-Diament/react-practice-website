@@ -1,15 +1,9 @@
-import MainBanner from '../MainBanner'
-import Shelf from '../Shelf'
-import Form from '../Form'
 import './style.css'
 
-const Main = () => {
+const Main = ({...props}) => {
   return (
     <main className="main">
-      <MainBanner />
-      <Shelf />
-      <Shelf />
-      <Form />
+      {props.children}
     </main>
   )
 }
