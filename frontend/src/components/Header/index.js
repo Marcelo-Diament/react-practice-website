@@ -9,7 +9,7 @@ const Header = ({ ...props }) => {
       <h1 className="header__title">HEADER</h1>
         <nav className="header__nav">
           <Link to="/" className="header__nav__item">Início</Link>
-          <Link to={location => ({ ...location, pathname: "/sobre" })} className="header__nav__item">Sobre</Link>
+          <Link to="/sobre" className="header__nav__item">Sobre</Link>
           <Link to="/categorias" className="header__nav__item">Categorias</Link>
           <Link to="/promocoes" disabled className="header__nav__item--disabled">Promoções</Link>
           <Link to="/contato" className="header__nav__item">Contato</Link>
