@@ -7,7 +7,7 @@ const Contato = () => {
     <>
       <small>Você está na página Contato</small>
       <Main>
-        <MainBanner/>
+        <MainBanner title="CONTATO" />
         <Form />
       </Main>
     </>
