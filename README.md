@@ -323,3 +323,30 @@ return (
     </section>
   )
 ```
+
+**Observação:** repare que no estilo, estamos usando a propriedade `background-blend-mode` com o valor `multiply` para escurecermos a imagem com a cor de fundo previamente definida, o que melhorará a legibilidade do texto do banner e fortalecerá a percepção da identidade do site. Também diferimos os valores de algumas propriedades quando há a classe `loading` (quando o _state_ `isLoading` tem valor `true` ):
+
+``` css
+.main-banner {
+    align-items: center;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+    background-color: #00dbf8;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    height: 600px;
+    margin: 0 0 16px 0;
+    max-height: 100vh;
+    padding: 16px;
+    width: 100vw;
+}
+
+.main-banner.loading {
+    background-blend-mode: normal;
+    background-size: 240px;
+}
+```
