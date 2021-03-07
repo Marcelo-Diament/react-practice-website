@@ -591,3 +591,15 @@ Também podemos atualizar o título do componente `Shelf` :
     color: #fff;
 }
 ```
+
+E o `background-color` do `Form` (e a cor da fonte do botão enviar):
+
+``` css
+.App.dark .form {
+    background-color: #87bcc3;
+}
+
+.App.dark .form__content__btn {
+    color: #87bcc3;
+}
+```
