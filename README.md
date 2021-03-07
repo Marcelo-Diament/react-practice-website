@@ -662,3 +662,30 @@ const Routes = () => {
 
 export default Routes
 ```
+
+### 05.03. Routes no App
+
+Agora é necessário importarmos o componente `Routes` no `App` . Importamos o componente e depois declaramos no retorno do `App` (no caso, os trechos `import Routes from './routes'` e `<Routes />` ):
+
+``` jsx
+import React, { useState } from 'react'
+import Header from './components/Header'
+import Routes from './routes'
+import Footer from './components/Footer'
+import './App.css';
+
+function App() {
+  const lightAsDefault = new Date().getHours() > 8 && new Date().getHours() < 18
+  const [isLight, setIsLight] = useState(lightAsDefault)
+  const toggleTheme = () => setIsLight(!isLight)
+  return (
+    <div className={`App${!isLight ? ' dark' : ''}`}>
+      <Header themeClick={toggleTheme} />
+      <Routes />
+      <Footer />
+    </div>
+  )
+}
+
+export default App
+```
