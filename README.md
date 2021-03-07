@@ -1125,9 +1125,9 @@ const renderCategories = () => categories.map((category) => {
 
 * Veja que todo atributo que estamos criando possui uma chave (nome à esquerda) e um valor (nome à direita). A **chave é o nome pelo qual acessaremos a _prop_** no componente que a recebe. O nome à direita, o **valor, é o nome da variável que detém o valor e que é definida dentro do atual componente**. Por exemplo, os _posts_ da categoria são passados através da variável `catPosts`. Mas são recebidos como `posts`.
 
-Toda a lógica demonstrada acima está contida numa função, chamada `renderCategories`. Então executaremos essa função dentro do retorno do componente (entre chaves, por se tratar de JS):
+Toda a lógica demonstrada acima está contida numa função, chamada `renderCategories` . Então executaremos essa função dentro do retorno do componente (entre chaves, por se tratar de JS):
 
-```jsx
+``` jsx
 return (
   <>
     <small>Você está na página Sobre</small>
@@ -1139,3 +1139,74 @@ return (
   </>
 )
 ```
+
+**Lendo o conteúdo na Shelf**
+
+Agora que o componente `Shelf` recebe o conteúdo passado a ele (uma categoria específica e os posts a ela relacionados), precisamos ler esses dados, renderizar o que for pertinente e passar para o `Card` o conteúdo de cada `Post` .
+
+``` jsx
+const Shelf = ({ ...props }) => {
+  const { title, posts } = props
+  const renderPosts = () => {
+    return posts.map((post, index) => {
+      const { title, description } = post
+      return (
+        <Card title={title} description={description} key={index} />
+      )
+    })
+  }
+  return (
+    <section className="shelf">
+      <h1 className="shelf__title">{title}</h1>
+      {renderPosts()}
+    </section>
+  )
+}
+```
+
+* Ao declarar a `Shelf`, passamos as _props_  (com o _spread operator_) como argumento.
+
+* Em seguida, desestruturamos as _props_ para capturarmos o `title` e os `posts`.
+
+* Depois, criamos uma função chamada `renderPosts`, que será executada dentro do retorno da `Shelf`.
+
+* A função `renderPosts` aplica o _loop_ `map` aos `posts` (passando o segundo parâmetro do `map`, o `index`, como `key` - para termos um identificador único).
+
+* Para cada `post` mapeado, desestruturamos o `post` para capturarmos o `title` e a `description` e instanciamos o `Card`.
+
+**Lendo o conteúdo no Card**
+
+Simplesmente recebemos as _props_, desestruturamos para capturarmos o `title` e a `description` e renderizamos dentro do componente:
+
+``` jsx
+import './style.css'
+
+const Card = (props) => {
+  const { title, description } = props
+  return (
+    <article className="card">
+      <h1 className="card__title">{title}</h1>
+      <p className="card__description">{description}</p>
+    </article>
+  )
+}
+
+export default Card
+```
+
+**Bônus! Line-clamp**
+
+É um problema muito comum termos textos muito longos nos _cards_. A boa notícia, é que conseguimos limitar o número de linhas a serem exibidos com CSS puro. Podemos fazer isso com a propriedade `line-clamp` somada a mais algumas. Veja:
+
+``` css
+.card__description {
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    color: #fff;
+    display: -webkit-box;
+    margin: 8px auto 0;
+    overflow: hidden;
+}
+```
+
+_Apenas a propriedade `color` e `margin` não compõem essa estratégia. No caso, limitamos o conteúdo exibido a 3 linhas._
