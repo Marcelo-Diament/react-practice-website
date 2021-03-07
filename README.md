@@ -1016,3 +1016,42 @@ const Main = ({...props}) => {
 
 export default Main
 ```
+
+**Passando componentes children para Main**
+
+Agora precisamos identificar em que arquivos instanciamos o componente `Main` e passar os componentes que desejamos para dentro de suas _tags_. No caso, são todos os componentes que correspondem a páginas (dentro da pasta `./frontend/src/pages` ).
+
+Para cada um deles, importaremos os componentes a serem utilizados e então declararemos esses componentes dentro da _tag_ `Main` . Vejamos um exemplo com a página `Contato` :
+
+``` jsx
+import Main from '../../components/Main'
+import MainBanner from '../../components/MainBanner'
+import Form from '../../components/Form'
+
+const Contato = () => {
+  return (
+    <>
+      <small>Você está na página Contato</small>
+      <Main>
+        <MainBanner />
+        <Form />
+      </Main>
+    </>
+  )
+}
+
+export default Contato
+```
+
+Agora é só replicarmos nas demais páginas, da forma que quisermos. Nessa prática teremos os seguintes componentes por página:
+
+| page      | components              |
+| --------- | ----------------------- |
+| Categoria | MainBanner, Shelf       |
+| Contato   | MainBanner, Form        |
+| Home      | MainBanner, Shelf       |
+| Produto   | MainBanner              |
+| Sobre     | MainBanner, Form, Shelf |
+
+_Posteriormente poderemos alterar esses componentes e toda a estrutura como um todo._
+
