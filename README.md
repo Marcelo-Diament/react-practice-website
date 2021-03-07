@@ -1055,7 +1055,7 @@ Agora é só replicarmos nas demais páginas, da forma que quisermos. Nessa prá
 
 _Posteriormente poderemos alterar esses componentes e toda a estrutura como um todo._
 
-**Passando um título para o MainBanner**
+#### 06.03. Passando props entre componentes
 
 Agora que podemos controlar os componentes de dentro de cada página (através dos _children_ de `Main` ), vamos passar um título para o componente `MainBanner` , de modo que se adeque a cada página onde é exibido o componente.
 
