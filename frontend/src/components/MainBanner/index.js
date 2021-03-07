@@ -3,26 +3,42 @@ import api from '../../services/api'
 import './style.css'
 
 const MainBanner = () => {
-  const { getRandomImgByTerm } = api.Unsplash
-  const [isLoading, setIsLoading] = useState(true)
-  const [img, setImg] = useState('https://i.pinimg.com/originals/65/ba/48/65ba488626025cff82f091336fbf94bb.gif')
-  const [term, setTerm] = useState('nature')
-
-  const imgCallback = url => {
-    setImg(url)
-    setTimeout(
-      setIsLoading(false),
-      1500
-    )
-  }
+  const { getRandomImgByTerm } = api.Unsplash,
+    defaultImg = 'https://i.pinimg.com/originals/65/ba/48/65ba488626025cff82f091336fbf94bb.gif',
+    defaultTerm = 'nature',
+    [isLoading, setIsLoading] = useState(true),
+    [img, setImg] = useState(defaultImg),
+    [term, setTerm] = useState(defaultTerm)
 
   useEffect(() => {
+    const imgCallback = url => {
+      if (!url.includes('source-404')) {
+        setImg(url)
+        setTimeout(
+          setIsLoading(false),
+          1500
+        )
+      } else {
+        setImg(defaultImg)
+        setIsLoading(true)
+        changeTheme()
+      }
+    }
     getRandomImgByTerm(term, imgCallback)
   }, [getRandomImgByTerm, term])
 
-  const changeTheme = event => {
-    event.preventDefault()
-    setTerm(prompt('Qual tema deseja?\n\nVocê pode definir mais de um tema, separando-os por vírgula. O termo deve ser escrito em inglês.').replace(/ /gi,''))
+  const changeTheme = (event = undefined) => {
+    if (event !== undefined) {
+      event.preventDefault()
+    }
+    const newTerm = prompt('Qual tema deseja?\nVocê pode definir mais de um tema, separando-os por vírgula.\nO termo deve ser escrito em inglês.')
+    if (newTerm && newTerm !== undefined) {
+      setTerm(newTerm.replace(/ /gi, ''))
+      setImg(defaultImg)
+      setIsLoading(true)
+    } else {
+      return
+    }
   }
 
   return (
