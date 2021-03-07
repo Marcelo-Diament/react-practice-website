@@ -776,3 +776,50 @@ const Routes = () => {
 
 export default Routes
 ```
+
+E então importaremos o `Link` no `Header` :
+
+``` jsx
+import { Link } from 'react-router-dom'
+```
+
+E substituiremos as tags `a` pelo `Link` :
+
+``` jsx
+<Link to="/" className="header__nav__item">Início</Link>
+<Link to="/sobre" className="header__nav__item">Sobre</Link>
+<Link to="/categorias" className="header__nav__item">Categorias</Link>
+<Link to="/promocoes" disabled className="header__nav__item--disabled">Promoções</Link>
+<Link to="/contato" className="header__nav__item">Contato</Link>
+```
+
+Dica: poderíamos passar a rota de destino dessa maneira também (passando uma função que representa uma _string_ ao invés da _string_):
+
+``` jsx
+<Link
+  to={location => ({ ...location, pathname: "/sobre" })}
+  className="header__nav__item"
+>
+  Sobre
+</Link>
+```
+
+E ainda poderíamos passar como objeto (no exemplo há algumas outras propriedades, apenas como exemplo):
+
+``` jsx
+<Link
+  to={{
+    pathname: "/sobre",
+    search: "?key=value",
+    hash: "#hash-example",
+    "state": {isLoading: true}
+  }}
+  className="header__nav__item"
+>
+  Sobre
+</Link>
+```
+
+Uma vantagem de passar como objeto é a facilidade de leitura e de passar um _state_ que persiste ao longo da navegação.
+
+Podemos, ainda, passar um atributo `replace` , que substitui a posição atual do histórico de navegação ao invés de acrescentar um novo item. Esse parâmetro é _booleano_, então simplesmente ao declarar `replace` já o configuramos como `true` (seria o mesmo que passarmos `replace={true}` ).
