@@ -81,7 +81,7 @@ Também criaremos uma pasta `./frontend/src/services/api` para centralizarmos os
 
 Por fim, criaremos uma pasta chamada `routes` dentro de `./frontend/src` e, dentro dessa pasta, o arquivo `index.js` . Será responsável pelo roteamento, ou seja, qual componente ou página renderizar de acordo com a URL acessada.
 
-Também instalaremos o [React Router DOM](https://reactrouter.com/web/guides/quick-start), um pacote que nos ajudará a trabalharmos com as rotas - e acessarmos uma série de dados relacionados à navegação - de maneira simples. Para instalar o pacote podemos executar `npm install --save react-router-dom` no terminal (podemos instalar o pacote via [npm](https://www.npmjs.com/package/react-router-dom) ou [yarn](https://yarnpkg.com/package/react-router-dom) - mas lembre-se de usar sempre o mesmo gerenciador de pacotes ao longo do projeto).
+Também instalaremos o [React Router DOM](https://reactrouter.com/web/guides/quick-start), um pacote que nos ajudará a trabalharmos com as rotas - e acessarmos uma série de dados relacionados à navegação - de maneira simples. Para instalar o pacote podemos acessar a pasta `./frontend` e executar `npm install --save react-router-dom` no terminal (podemos instalar o pacote via [npm](https://www.npmjs.com/package/react-router-dom) ou [yarn](https://yarnpkg.com/package/react-router-dom) - mas lembre-se de usar sempre o mesmo gerenciador de pacotes ao longo do projeto).
 
 ### 02. Conteúdo Inicial de Marcação
 
@@ -602,4 +602,63 @@ E o `background-color` do `Form` (e a cor da fonte do botão enviar):
 .App.dark .form__content__btn {
     color: #87bcc3;
 }
+```
+
+### 05. Rotas
+
+Vamos manipular as rotas de nosso projeto - em outras palavras, definir o que deve ser carregado/renderizado de acordo com a URL acessada.
+
+#### 05.01. react-router-dom
+
+Caso ainda não tenha instalado o pacote [React Router DOM](https://reactrouter.com/web/guides/quick-start), acesse a pasta `./frontend` e execute o seguinte comando no terminal: `npm install --save react-router-dom` . Nosso arquivo `package.json` receberá a nova dependência, graças à opção `--save` .
+
+#### 05.02. Routes
+
+No arquivo `./frontend/src/routes/index.js` vamos importar o pacote [React Router DOM](https://reactrouter.com/web/guides/quick-start) e os seguintes métodos: `BrowserRouter` , `Switch` e `Route` . E apelidaremos o `BrowserRouter` de `Router` com um _alias_:
+
+``` jsx
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+```
+
+**Router, Route e Switch**
+
+O `Router` é quem nos permite trabalhar com as rotas. E o `Route` é o que define um rota propriamente dita. Por fim, o `Switch` funciona como um _switch_ mesmo: ele verifica - de cima para baixo - se alguma condição é atendida. Caso encontre um caso verdadeiro, acessa a rota e interrompe a leitura (não continua lendo as rotas abaixo).
+
+**Correspondência**
+
+Vale pontuar que ao ler as rotas, não há, por _default_, uma verificação de correespondência exata. Ou seja, a rota `/` sempre será considerada como _true_, pois todas as rotas começam com `/` . Por isso, é uma boa prática declararmos as rotas mais específicas acima e as mais genéricas abaixo (para que as genéricas sejam as últimas opções, só sejam acessadas caso nenhuma outra rota mais específica coincida com a rota acessada pelo usuário).
+
+Outro recurso que nos ajuda a trabalhar com esse _match_ é o atributo `exact` . Ele permite a verificação da correspondência exata (no caso, `/categorias` não seria considerada igual a `/categorias/:categoria` ).
+
+**Params**
+
+Talvez você esteja se perguntando - _O que são esses dois pontos em `:categoria` ?_. Nós podemos definir variáveis (_params_) nas rotas, que poderão ser capturadas dentro do componente, através do _request_. Nomeamos essas variáveis justamente nesse momento. Veremos mais adiante como capturarmos essas variáveis. Podemos, também, declarar variáveis opcionais com uma interrogação ao final da variável - `/categorias/:categoria?` .
+
+Tendo tudo isso em mente, importaremos os componentes a serem utilizados e definiremos nosso componente `Routes` . Atenção: não incluiremos os componentes `Header` nem `Footer` pois já serão declarados no `App` . Nosso componente responsável pelas rotas ficará assim:
+
+``` jsx
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Home from '../pages/Home'
+import Sobre from '../pages/Sobre'
+import Categoria from '../pages/Categoria'
+import Produto from '../pages/Produto'
+import Contato from '../pages/Contato'
+
+const Routes = () => {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/sobre" component={Sobre} />
+        <Route path="/contato" component={Contato} />
+        <Route exact path="/categorias" component={Categoria} />
+        <Route exact path="/categorias/:categoria" component={Categoria} />
+        <Route exact path="/categorias/:categoria/:produto" component={Produto} />
+        <Route path="/" component={Home} />
+      </Switch>
+    </Router>
+  )
+}
+
+export default Routes
 ```
