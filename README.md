@@ -1476,3 +1476,21 @@ return (
 ```
 
 Com isso, finalizamos mais essa etapa!
+
+___
+
+## TO DO
+
+- Revisar mobile
+
+- Rever _breadcrumb_ e incluir _links_
+
+- Criar página de _post_
+
+- Adicionar _links_ ao _post_ (detalhamento)
+
+- Refatorar código
+
+- Lançar _release_ 1.0.0
+
+- _Deploy_ do _build_ no GitHub Pages
