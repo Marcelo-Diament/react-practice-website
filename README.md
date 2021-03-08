@@ -1351,7 +1351,7 @@ Como alteramos o componente `Header` , agora precisamos atualizar seu estilo:
 
 * No `.header`, liberamos o `flex-wrap` para quebrar e zeramos a `margin`
 
-* Defininmos um `flex` (`flex-grow`,  `flex-shrink` e `flex-basis`) para o `.header__title` e `.header__nav`
+* Defininmos um `flex` (`flex-grow`,      `flex-shrink` e `flex-basis`) para o `.header__title` e `.header__nav`
 
 * E acrescentamos o estilo a seguir no submenu:
 
@@ -1390,7 +1390,37 @@ Também atualizamos o seletor `.header+small` para `.header-container+small` par
 
 Vamos fazer com que o termo que gera a requisição de imagem na API do Unsplash seja correspondente ao nome da categoria (por isso traduzimos os títulos para Inglês).
 
-Para isso, vamos acessar a categoria enviada por variável da rota (`param`). Usaremos o _hook_ `useParams` para capturar essa variável.
+Para isso, vamos acessar a categoria enviada por variável da rota ( `param` ). Usaremos o _hook_ `useParams` para capturar essa variável.
 
-Também usaremos o _hook_ `useLocation` para verificarmos se houve alguma alteração na URL e podermos 'forçar' a troca da imagem com o _hook_ `useEffect`.
+Também usaremos o _hook_ `useLocation` para verificarmos se houve alguma alteração na URL e podermos 'forçar' a troca da imagem com o _hook_ `useEffect` .
 
+**Importando `useParams` e `useEffect` do React Router DOM**
+
+``` jsx
+import { useParams, useLocation } from 'react-router-dom'
+```
+
+**Capturando `location` e `param` - categoria da URL**
+
+``` jsx
+let { categoria } = useParams(),
+    location = useLocation()
+```
+
+**Redefinindo o _state_ inicial do termo, caso haja categoria enviada via URL**
+
+``` jsx
+[term, setTerm] = useState(categoria ? categoria : defaultTerm)
+```
+
+**Setando o novo `term` quando há alteração no `location` ou na categoria**
+
+``` jsx
+useEffect(() => {
+  if (categoria) {
+    setTerm(categoria)
+  } else {
+    setTerm(defaultTerm)
+  }
+}, [location, categoria])
+```
