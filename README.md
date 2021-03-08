@@ -1264,3 +1264,71 @@ export default clearString
 ```
 
 E já vamos aproveitar para renomear as categorias para termos em inglês - no caso, _Space_, _Sea_ e _Brazil_.
+
+#### 07.02. Construindo o submenu
+
+Para criarmos um submenu destacando as categorias, foi necessária uma refatoração no componente `Header` (tanto na estrutura quando no estilo). Vamos começar pelo JS:
+
+**Header/index.js**
+
+Importamos a função auxiliadora `clearString` e o conteúdo _fake_ ( `content` ):
+
+``` jsx
+import { clearString, content } from '../../Helpers'
+```
+
+Depois capturamos as categorias de `content` e executamos um _loop_ com o `map` , onde a cada 'rodada', imprimimos uma nova `NavLink` - além de tratarmos o `title` da categoria:
+
+``` jsx
+const { categories } = content
+const renderCategoriesNavLinks = () => categories.map((category, index) => {
+  const { title } = category
+  const cleanTitle = clearString(title, true, true)
+  return (
+    <NavLink to={`/categorias/${cleanTitle}`} activeClassName="selected" className="subheader__subnav__item" key={index}>{title}</NavLink>
+  )
+})
+```
+
+Por fim, criamos um container para ambos os menus e separamos o `header` e o `subheader` em duas _tags_ `article`. O resultado final deve ficar assim:
+
+```jsx
+import { NavLink } from 'react-router-dom'
+import { ToggleButton } from '../Button'
+import { clearString, content } from '../../Helpers'
+import './style.css'
+
+const Header = ({ ...props }) => {
+  const { categories } = content
+  const renderCategoriesNavLinks = () => categories.map((category, index) => {
+    const { title } = category
+    const cleanTitle = clearString(title, true, true)
+    return (
+      <NavLink to={`/categorias/${cleanTitle}`} activeClassName="selected" className="subheader__subnav__item" key={index}>{title}</NavLink>
+    )
+  })
+  const { themeClick } = props
+  return (
+    <section className="header-container">
+      <article className="header">
+        <h1 className="header__title">HEADER</h1>
+        <nav className="header__nav">
+          <NavLink exact to="/" activeClassName="selected" className="header__nav__item">Início</NavLink>
+          <NavLink to="/sobre" activeClassName="selected" className="header__nav__item">Sobre</NavLink>
+          <NavLink to="/categorias" activeClassName="selected" className="header__nav__item">Categorias</NavLink>
+          <NavLink to="/promocoes" disabled className="header__nav__item--disabled">Promoções</NavLink>
+          <NavLink to="/contato" activeClassName="selected" className="header__nav__item">Contato</NavLink>
+          <ToggleButton className="header__nav__item" themeClick={themeClick} />
+        </nav>
+      </article>
+      <article className="subheader">
+        <nav className="subheader__nav">
+          {renderCategoriesNavLinks()}
+        </nav>
+      </article>
+    </section>
+  )
+}
+
+export default Header
+```
