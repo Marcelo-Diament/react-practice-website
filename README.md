@@ -1385,3 +1385,12 @@ Como alteramos o componente `Header` , agora precisamos atualizar seu estilo:
 **App.css**
 
 Também atualizamos o seletor `.header+small` para `.header-container+small` para reaplicarmos o estilo no 'pseudo-breadbrumb'.
+
+#### 07.03. Imagem do MainBanner conforme categoria
+
+Vamos fazer com que o termo que gera a requisição de imagem na API do Unsplash seja correspondente ao nome da categoria (por isso traduzimos os títulos para Inglês).
+
+Para isso, vamos acessar a categoria enviada por variável da rota (`param`). Usaremos o _hook_ `useParams` para capturar essa variável.
+
+Também usaremos o _hook_ `useLocation` para verificarmos se houve alguma alteração na URL e podermos 'forçar' a troca da imagem com o _hook_ `useEffect`.
+
