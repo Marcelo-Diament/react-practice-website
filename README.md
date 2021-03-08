@@ -1265,9 +1265,9 @@ export default clearString
 
 **Atualizando o arquivo base de Helpers**
 
-E então importamos as novas funções de apoio ao `index.js` do `Helpers`:
+E então importamos as novas funções de apoio ao `index.js` do `Helpers` :
 
-```jsx
+``` jsx
 import content from './fakeContent.json'
 import clearString from './clearString'
 import firstCharUpper from './firstCharUpper'
@@ -1302,9 +1302,9 @@ const renderCategoriesNavLinks = () => categories.map((category, index) => {
 })
 ```
 
-Por fim, criamos um container para ambos os menus e separamos o `header` e o `subheader` em duas _tags_ `article`. O resultado final deve ficar assim:
+Por fim, criamos um container para ambos os menus e separamos o `header` e o `subheader` em duas _tags_ `article` . O resultado final deve ficar assim:
 
-```jsx
+``` jsx
 import { NavLink } from 'react-router-dom'
 import { ToggleButton } from '../Button'
 import { clearString, content } from '../../Helpers'
@@ -1343,4 +1343,41 @@ const Header = ({ ...props }) => {
 }
 
 export default Header
+```
+
+**Header/style.css**
+
+Como alteramos o componente `Header` , agora precisamos atualizar seu estilo:
+
+* No `.header`, liberamos o `flex-wrap` para quebrar e zeramos a `margin`
+
+* Defininmos um `flex` (`flex-grow`,  `flex-shrink` e `flex-basis`) para o `.header__title` e `.header__nav`
+
+* E acrescentamos o estilo a seguir no submenu:
+
+``` css
+.subheader {
+    background-color: #232323;
+    margin: 0 0 16px;
+    padding: 8px 16px;
+    width: 100vw;
+}
+
+.subheader__nav {
+    align-items: center;
+    display: flex;
+    flex: 1 0 100%;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+.subheader__subnav__item {
+    color: #fff;
+    font-weight: bolder;
+}
+
+.subheader__subnav__item.selected {
+    color: #00dbf8;
+    font-weight: bold;
+}
 ```
