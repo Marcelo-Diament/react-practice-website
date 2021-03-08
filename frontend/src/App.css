@@ -25,13 +25,13 @@ button:hover:not([class*="disabled"]) {
 }
 
 /* Temp */
-.header+small {
+.header-container+small {
   display: block;
   font-style: italic;
   padding: 0 8px 8px;
   margin: 0 auto 8px 0;
 }
 
-.App.dark .header+small {
+.App.dark .header-container+small {
   color: #fff;
 }
