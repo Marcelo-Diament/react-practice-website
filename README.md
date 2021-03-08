@@ -1263,6 +1263,18 @@ const clearString = (string, spaceToHyphen = false, keepHyphen = true) => {
 export default clearString
 ```
 
+**Atualizando o arquivo base de Helpers**
+
+E então importamos as novas funções de apoio ao `index.js` do `Helpers`:
+
+```jsx
+import content from './fakeContent.json'
+import clearString from './clearString'
+import firstCharUpper from './firstCharUpper'
+
+export { clearString, content, firstCharUpper }
+```
+
 E já vamos aproveitar para renomear as categorias para termos em inglês - no caso, _Space_, _Sea_ e _Brazil_.
 
 #### 07.02. Construindo o submenu
