@@ -1381,3 +1381,7 @@ Como alteramos o componente `Header` , agora precisamos atualizar seu estilo:
     font-weight: bold;
 }
 ```
+
+**App.css**
+
+Também atualizamos o seletor `.header+small` para `.header-container+small` para reaplicarmos o estilo no 'pseudo-breadbrumb'.
