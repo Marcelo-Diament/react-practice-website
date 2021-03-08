@@ -1351,7 +1351,7 @@ Como alteramos o componente `Header` , agora precisamos atualizar seu estilo:
 
 * No `.header`, liberamos o `flex-wrap` para quebrar e zeramos a `margin`
 
-* Defininmos um `flex` (`flex-grow`,      `flex-shrink` e `flex-basis`) para o `.header__title` e `.header__nav`
+* Defininmos um `flex` (`flex-grow`,         `flex-shrink` e `flex-basis`) para o `.header__title` e `.header__nav`
 
 * E acrescentamos o estilo a seguir no submenu:
 
@@ -1424,3 +1424,55 @@ useEffect(() => {
   }
 }, [location, categoria])
 ```
+
+#### 07.04. Atualizando a página de Categoria
+
+Agora faremos com que a página `Categoria` enxergue o parâmetro `:categoria` que pode (ou não) ser enviado pela rota. Para capturarmos esse parâmetro usaremos o _hook_ `useParams` .
+
+Então vamos importá-lo: `import { useParams } from 'react-router-dom'` .
+
+Também importaremos as novas funções auxiliares: `import { clearString, content, firstCharUpper } from '../../Helpers'` .
+
+Através do _hook_ `useParams` , vamos capturar a categoria: `const { categoria } = useParams()` .
+
+E, com base na categoria identificada, vamos alterar o _loop_ que lê o conteúdo de marcação (função `renderCategories` ):
+
+``` jsx
+const renderCategories = () => categories.map((category) => {
+  if (!categoria || (categoria !== {} && clearString(categoria) === clearString(category.title))) {
+    const { id, title } = category
+    const catPosts = posts.filter(post => post.cat_id === id)
+    return (
+      <Shelf title={title} posts={catPosts} key={id} />
+    )
+  } else {
+    return null
+  }
+})
+```
+
+Basicamente verificarmos se não é enviado o parâmetro `:categoria` pela rota OU se a categoria enviada 'bate' com a categoria sendo vista naquele _loop_ específico do `map` .
+
+Caso contrário (ou seja, se o usuário estiver numa página de categoria específica E a categoria do _loop_ não casar com a categoria onde está), retornamos `null` .
+
+A partir desse momento, se:
+
+* O usuário estiver na página geral de categorias, visualizará todas elas.
+
+* O usuário estiver numa página de categoria específica, só visualizará os _posts_ pertencentes a ela.
+
+E, como já estamos alterando o componente, caso recebamos a categoria específica, vamos trazer o nome da categoria para o 'pseudo _breadcrumb_' e para o título do `MainBanner` , com auxílio das funções _helper_.
+
+``` jsx
+return (
+  <>
+    <small>Você está na página {categoria ? `Categorias > ${firstCharUpper(categoria)}` : 'Categorias'}</small>
+    <Main>
+      <MainBanner title={categoria ? categoria.toUpperCase() : 'CATEGORIAS'} />
+      {renderCategories()}
+    </Main>
+  </>
+)
+```
+
+Com isso, finalizamos mais essa etapa!
