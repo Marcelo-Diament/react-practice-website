@@ -1215,14 +1215,52 @@ _Apenas a propriedade `color` e `margin` não compõem essa estratégia. No caso
 
 Nessa etapa vamos criar um submenu para as categorias e fazer algumas customizações para deixar o projeto um pouco mais dinâmico. Vamos:
 
-- Criar funções auxiliares para manipulação de _strings_
+* Criar funções auxiliares para manipulação de _strings_
 
-- Carregar imagens  do `MainBanner` que sejam relacionadas às subcategorias (para isso vamos ter de deixar o nome das categorias em inglês)
+* Carregar imagens  do `MainBanner` que sejam relacionadas às subcategorias (para isso vamos ter de deixar o nome das categorias em inglês)
 
-- Atualizar a _tag_ `small` que indica em que página estamos, de acordo com a categoria
+* Atualizar a _tag_ `small` que indica em que página estamos, de acordo com a categoria
 
-- Conhecer o _hook_ `useParams` e `useLocation` do `react-router-dom`
+* Conhecer o _hook_ `useParams` e `useLocation` do `react-router-dom`
 
-- Configurar a página `Categoria` para se adequar às rotas que passam o parâmetro `:categoria`
+* Configurar a página `Categoria` para se adequar às rotas que passam o parâmetro `:categoria`
 
 Acesse a _branch_ `feature/07-categories-submenu` para ver maiores detalhes.
+
+#### 07.01. Funções auxiliares
+
+Nesse passo vamos criar duas funções auxiliares bem simples:
+
+**firstCharUpper**
+
+A função `firstCharUpper` transforma a primeira letra de uma _string_ em maiúscula. Vamos criar um arquivo de mesmo nome dentro de `Helpers` e declarar o seguinte código:
+
+``` js
+const firstCharUpper = (string) => string.substring(0, 1).toUpperCase() + string.substring(1)
+
+export default firstCharUpper
+```
+
+**clearString**
+
+Uma função que limpa caracteres especiais e, opcionalmente, transforma hífens em espaços e/ou remove hífens (muito útil para compararmos _strings_):
+
+``` js
+const clearString = (string, spaceToHyphen = false, keepHyphen = true) => {
+    let cleanString = string
+        .replace(/á|ä|â|à|ã/gi, 'a')
+        .replace(/é|ë|ê|è/gi, 'e')
+        .replace(/í|ï|î|ì/gi, 'i')
+        .replace(/ó|ö|ô|ò|õ/gi, 'o')
+        .replace(/ú|ü|û|ù/gi, 'u')
+        .replace(/ç/gi, 'c')
+        .toLowerCase()
+    cleanString = !keepHyphen ? cleanString.replace(/-/gi, '') : cleanString
+    cleanString = spaceToHyphen ? cleanString.replace(/\s/gi, '-') : cleanString.replace(/\s/gi, '')
+    return cleanString
+}
+
+export default clearString
+```
+
+E já vamos aproveitar para renomear as categorias para termos em inglês - no caso, _Space_, _Sea_ e _Brazil_.
